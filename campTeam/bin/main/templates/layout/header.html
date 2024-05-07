@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+	<!-- xmlns:sec="http://www.thymeleaf.org/extras/spring-security" -->
+
+	
+<div th:fragment="header">
+
+
+	<!-- //////////////////////////////////////////////////////////// -->
+
+	<!--
+		인자 현황판 (collapse) : 교정 : list.html로 부터 이전 및 교정(작동 이상) : 2024.3
+		: 교정 사항 : 인자(pageVO, boardList)가 있을 경우에만 표현 
+		: https://getbootstrap.com/docs/5.3/components/collapse/ 
+	-->
+	<div id="args_board" class="collapse">
+		
+		<table class="table table-striped"  th:if="${pageVO != null}">
+			<tr>
+				<th style="width: 150px;">총 게시글 수</th>
+				<td th:text="${pageVO.listCount}"></td>
+				<th style="width: 150px;">이전 페이지</th>
+				<td th:text="${pageVO.prePage}"></td>
+				<th style="width: 150px;">현재 페이지</th>
+				<td th:text="${pageVO.currPage}"></td>
+				<th style="width: 150px;">이후 페이지</th>
+				<td th:text="${pageVO.nextPage}"></td>
+				<th style="width: 150px;">처음 페이지</th>
+				<td th:text="${pageVO.startPage}"></td>
+				<th style="width: 150px;">마지막 페이지</th>
+				<td th:text="${pageVO.endPage}"></td>
+			</tr>
+			<tr th:each="board, st : ${boardList}" th:if="${not #lists.isEmpty(boardList)}">
+				<th colspan="1">게시글 정보</th>
+				<td colspan="11"><span th:text="${board}"></span><br></td>
+			</tr>
+		</table>
+	
+		<!-- 인증정보/회원정보 인자 확인  -->
+		<div th:if="${#authentication != null}">
+			
+			<table class="table table-striped">
+				<tr>
+					<th style="width:120px">인증정보</th>
+					<td>[[${#authentication}]]</td>
+				</tr>
+			</table>
+			
+		</div>
+		
+		<div th:if="${memberDTO != null}">
+		
+			<table class="table table-striped">
+				<tr>
+					<th style="width:120px">회원정보(인자)</th>
+					<td>[[${memberDTO}]]</td>
+				</tr>
+			</table>
+			
+		</div>
+		
+		<div th:if="${board != null}">
+			
+			<table class="table table-striped">
+				<tr>
+					<th style="width:120px">게시글 정보</th>
+					<td>[[${board}]]</td>
+				</tr>
+			</table>
+			 
+		</div>		
+		
+		<div th:if="${session.boardUpdateSess != null}">
+			
+			<table class="table table-striped">
+				<tr>
+					<th style="width:120px">기존 게시글 정보(세션)</th>
+					<td>[[${session.boardUpdateSess}]]</td>
+				</tr>
+			</table>
+			 
+		</div>		
+				
+	</div>
+	
+	<!-- //////////////////////////////////////////////////////////// -->
+	
+	<div class="header_sect_pnl">
+	
+			<!-- 
+			
+			- Spring Security/Thymeleaf
+			: https://github.com/thymeleaf/thymeleaf-extras-springsecurity
+			
+			- Spring Security : Auth Method(인증/인가 관련 메서드)
+			: https://cafe.naver.com/ezbigjava1/508
+			
+			-->
+	
+		<ul id="main_menu">
+		
+			<!-- 인자 현황 보기/가리기 버튼(추가) : 2024.3 -->
+				<div class="d-flex mt-1">
+					<a href="#args_board" class="btn btn-primary p-2 mt-1 mx-2" 
+					   data-bs-toggle="collapse" data-bs-target="#args_board" 
+					   aria-expanded="false" aria-controls="args_board">
+					   인자현황
+					</a>
+				</div>
+		</ul>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" th:href="@{/}">캠핑 어때</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" th:classappend="${menu} == 'about'? 'active'" aria-current="page" href="#" th:href="@{/about.do}">캠핑어때는?
+          <span class="visually-hidden"	th:if="${menu} == 'about'"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:classappend="${menu} == 'notice'? 'active'" aria-current="page" href="#" th:href="@{/notice.do}">공지사항</a>
+          <span class="visually-hidden"	th:if="${menu} == 'notice'"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:classappend="${menu} == 'search'? 'active'" aria-current="page" href="#" th:href="@{/searchlist.do}">추천캠핑찾기
+          <span class="visually-hidden"	th:if="${menu} == 'search'"></span></a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="nav-link" th:classappend="${menu} == 'board'? 'active'" aria-current="page" href="#" th:href="@{/board/list.do}">게시판
+          <span class="visually-hidden"	th:if="${menu} == 'board'"></span></a>
+        </li>
+      </ul>
+     <!--  <form class="d-flex" role="search"> -->
+       			<!-- 로그인 인증이 안되었을 때  -->
+			<a sec:authorize="isAnonymous()" class="btn btn-outline-success my-2 me-2" th:href="@{/login}">로그인</a>
+			<a sec:authorize="isAnonymous()" class="btn btn-outline-success" th:href="@{/member/join.do}">회원 가입</a>
+     <!--  </form> -->
+     		<form class="d-flex" role="search" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+				<!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+				<span class="text-white justify-content-center" sec:authentication="name">사용자</span> <span class="text-white row justify-content-center mx-2" sec:authentication="principal.authorities">권한</span>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-success dropdown-toggle mx-2" data-bs-toggle="dropdown" aria-expanded="false">
+				    내 정보
+				  </button>
+				  
+				  <ul class="dropdown-menu">
+				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/welcome}">마이페이지</a></li>
+				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/logout}">로그아웃</a></li>
+				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/member/view.do}">회원정보조회</a></li>
+				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/member/update.do}">회원정보수정</a></li>
+				    <li><hr class="dropdown-divider"></li>
+				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#">회원탈퇴</a></li>
+				    <li><hr class="dropdown-divider"></li>
+				    <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" href="#" th:href="@{/admin/viewAllWithRoles.do}">회원 관리</a></li>
+				  </ul>
+				</div>
+				<button class="btn btn-outline-success" type="submit">로그아웃</button>
+			</form>
+    </div>
+  </div>
+</nav>			
+			
+
+						
+			<!-- 로그인 인증되었을 때   -->
+			<!-- <li sec:authorize="isAuthenticated()"><a th:href="@{/welcome}">MyPage</a></li>
+			
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>
+			
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/view.do}">회원 정보 조회</a></li>
+			
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update.do}">회원 정보 수정</a></li>
+			
+			게시판 링크
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/board/list.do}">게시글 목록</a></li>
+			// 게시판 링크
+			
+			등급(롤:role)이 관리자일 경우
+			<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/viewAllWithRoles.do}">회원 관리</a></li> -->
+			
+
+	</div>
+
+</div>
