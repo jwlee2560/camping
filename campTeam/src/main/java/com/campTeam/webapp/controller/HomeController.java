@@ -30,7 +30,7 @@ public class HomeController {
 		return "about";
 	}
 	
-	@GetMapping("/notice.do")
+	@GetMapping("/content1.do")
 	public String content1() {
 		
 		log.info("공지사항");
@@ -89,6 +89,7 @@ public class HomeController {
 		model.addAttribute("movePage", "/welcome");
 	
 		return "/error/error";
-	}	
+	}
+	
 
 }

@@ -98,40 +98,39 @@
 			
 			-->
 	
+		<ul id="main_menu">
 		
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<!-- 인자 현황 보기/가리기 버튼(추가) : 2024.3 -->
+				<div class="d-flex mt-1">
+					<a href="#args_board" class="btn btn-primary p-2 mt-1 mx-2" 
+					   data-bs-toggle="collapse" data-bs-target="#args_board" 
+					   aria-expanded="false" aria-controls="args_board">
+					   인자현황
+					</a>
+				
+		</ul>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="menu(menu)">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#" th:href="@{/}">캠핑 어때</a>
+    <a class="navbar-brand" href="#" th:href="@{/}">캠핑 프로젝트</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
-	      <li>
-	       <!-- 인자 현황 보기/가리기 버튼(추가) : 2024.3 -->
-					<div class="d-flex mt-1">
-						<a href="#args_board" class="btn btn-primary p-2 mt-1 mx-2" 
-						   data-bs-toggle="collapse" data-bs-target="#args_board" 
-						   aria-expanded="false" aria-controls="args_board">
-						   인자현황
-						</a>
-					</div>
-	      </li>
-				
         <li class="nav-item">
-          <a class="nav-link" th:classappend="${menu} == 'about'? 'active'" aria-current="page" href="#" th:href="@{/about.do}">캠핑어때는?
+          <a class="nav-link" th:classappend="${menu} == 'about'? 'active'" aria-current="page" href="#" th:href="@{/about.do}">캠핑소식
           <span class="visually-hidden"	th:if="${menu} == 'about'"></span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:classappend="${menu} == 'notice'? 'active'" aria-current="page" href="#" th:href="@{/notice.do}">공지사항</a>
+          <a class="nav-link" th:classappend="${menu} == 'notice'? 'active'" aria-current="page" href="#" th:href="@{/notice/list.do}">공지사항
           <span class="visually-hidden"	th:if="${menu} == 'notice'"></span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:classappend="${menu} == 'search'? 'active'" aria-current="page" href="#" th:href="@{/searchlist.do}">추천캠핑찾기
           <span class="visually-hidden"	th:if="${menu} == 'search'"></span></a>
         </li>
-        <li class="nav-item" sec:authorize="isAuthenticated()">
-          <a class="nav-link" th:classappend="${menu} == 'board'? 'active'" aria-current="page" href="#" th:href="@{/board/list.do}">게시판
+        <li class="nav-item">
+          <a id="boardButton" class="nav-link" th:classappend="${menu} == 'board'? 'active'" aria-current="page" href="#" th:href="@{/board/list.do}">게시판
           <span class="visually-hidden"	th:if="${menu} == 'board'"></span></a>
         </li>
       </ul>
@@ -154,7 +153,7 @@
 				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/member/view.do}">회원정보조회</a></li>
 				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/member/update.do}">회원정보수정</a></li>
 				    <li><hr class="dropdown-divider"></li>
-				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#">회원탈퇴</a></li>
+				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item text-danger" href="#">회원탈퇴</a></li>
 				    <li><hr class="dropdown-divider"></li>
 				    <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" href="#" th:href="@{/admin/viewAllWithRoles.do}">회원 관리</a></li>
 				  </ul>

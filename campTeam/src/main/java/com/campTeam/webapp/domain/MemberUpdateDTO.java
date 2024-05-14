@@ -43,6 +43,25 @@ public class MemberUpdateDTO extends MemberDTO implements Serializable {
 		this.setEnabled(memberDTO.getEnabled());
 	}
 	
+	public MemberUpdateDTO(MemberDTO2 memberDTO) {
+
+		this.setId(memberDTO.getId());
+		this.setPassword(memberDTO.getPassword());
+		this.setName(memberDTO.getName());
+		this.setGender(memberDTO.getGender());
+		this.setAge(memberDTO.getAge());
+		this.setEmail(memberDTO.getEmail());
+		this.setMobile(memberDTO.getMobile());
+		this.setPhone(memberDTO.getPhone());
+		this.setZip(memberDTO.getZip());
+		this.setRoadAddress(memberDTO.getRoadAddress());
+		this.setJibunAddress(memberDTO.getJibunAddress());
+		this.setDetailAddress(memberDTO.getDetailAddress());
+		this.setBirthday(memberDTO.getBirthday());
+		this.setJoindate(memberDTO.getJoindate());
+		this.setEnabled(memberDTO.getEnabled());
+	}
+	
 	public MemberUpdateDTO(MemberVO memberDTO) {
 
 		this.setId(memberDTO.getId());

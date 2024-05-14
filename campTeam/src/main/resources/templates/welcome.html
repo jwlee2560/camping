@@ -7,14 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>welcome</title>
-<style>
+<!-- <style>
 	#myPage {
 		height:100%;
 		display:flex;
 		align-items:center;
 		justify-content:center;
 	}
-</style>
+</style> -->
 
 <!-- bootstrap icons :  -->
 <link rel="stylesheet" th:href="@{/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css}">
@@ -22,7 +22,7 @@
 <body>
 
 	<!-- layout -->
-	<div layout:fragment="content" class="main_sect_pnl">
+	<div layout:fragment="content" class="main_sect_pnl" style="height:700px">
 	
 		<div id="myPage" class="content_sect_pnl" style="font-size:1.2em">
 	
@@ -43,11 +43,13 @@
 			</span>
 			&nbsp;
 			
-			<div class="position-absolute top-50 start-30 d-flex justify-content-center">
+			<div class="d-flex justify-content-center"><br>
+			
 			<b><span th:text="${#authentication.name}"></span></b>
 			 님 입장하셨습니다&nbsp;&nbsp;
-			 
+			
 			<a class="btn btn-primary" th:href="@{'/logout'}">로그아웃</a>
+			
 		</div>
 		</div>
 

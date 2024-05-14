@@ -8,15 +8,37 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.campTeam.webapp.domain.MemberDTO;
+import com.campTeam.webapp.domain.MemberDTO2;
 import com.campTeam.webapp.domain.MemberVO;
 
 public interface MemberJpaDAO 
-	extends PagingAndSortingRepository<MemberVO, String> {
+	extends PagingAndSortingRepository<MemberDTO, String> {
 	// extends CrudRepository<MemberVO, String> {
 	
+	@Query(value="select m.id as id,"
+			+ "m.password as password,"
+			+ "m.name as name,"
+			+ "m.gender as gender,"
+			+ "m.age as age,"
+			+ "m.email as email,"
+			+ "m.mobile as mobile,"
+			+ "m.phone as phone,"
+			+ "m.zip as zip,"
+			+ "m.road_Address,"
+			+ "m.jibun_Address,"
+			+ "m.detail_Address,"
+			+ "m.birthday as birthday,"
+			+ "m.joindate as joindate,"
+			+ "m.enabled as enabled,"
+			+ " r.role as role "
+			+ "from member_tbl m,user_roles r "
+			+ "where m.id = r.username "
+			+ "and m.id = :id", nativeQuery = true)
+	public MemberDTO findById(@Param("id") String id);
+	
 	public MemberVO save(MemberVO memberVO);
-
-	public MemberVO findById(String id);
+	
 	
 	// public boolean hasFld(String fld, String val) {
 	// SELECT count(*) FROM member_tbl WHERE ${fld} = #{val}
@@ -58,7 +80,7 @@ public interface MemberJpaDAO
 	int count();
 	
 	// Page<BoardVO> findAll(Pageable pageable);
-	Page<MemberVO> findAll(Pageable pageable);
+	Page<MemberDTO> findAll(Pageable pageable);
 	
 	/*
 	@Query(value="SELECT    id, "

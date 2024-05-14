@@ -89,6 +89,10 @@ public class MemberVO implements Serializable {
 	/** 회원 활성화 여부 */
 	@Column
 	private int enabled;
+	
+	/*
+	 * @Column private String role;
+	 */
 
 	public String getId() {
 		return id;
@@ -209,6 +213,14 @@ public class MemberVO implements Serializable {
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
+
+//	public String getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(String role) {
+//		this.role = role;
+//	}
 
 	@Override
 	public String toString() {

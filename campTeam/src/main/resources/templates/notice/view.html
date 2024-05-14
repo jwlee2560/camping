@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security6"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}" lang="ko-kr">
+<head>
+<meta charset="UTF-8">
+<title>공지글 보기</title>
+
+<style>
+#reply_write_form {
+ resize:none;
+ height:5em;
+ width:100%;
+}
+</style>
+
+<!-- bootstrap icons -->
+<link rel="stylesheet" th:href="@{/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css}">
+
+<!-- 댓글 전송용  -->
+<!-- AJAX library axios -->
+<script th:src="@{'/axios/1.5.0/dist/axios.min.js'}"></script>
+
+<!-- 코드 다량 발생 → 별도 파일화 -->
+<script th:src="@{'/js/notice_view.js'}"></script>
+
+<!-- 댓글 제어 -->
+<script>
+window.onload = () => {
+		
+	// 개별글 로딩시 지금까지 집계된 댓글들 읽어오기
+	let noticeNum = '[[${notice.noticeNum}]]';
+	
+	// 전체 댓글 로딩(불러오기) : notice_view.js 파일로 함수 분리
+	// getAllReplies(noticeNum);
+	// 2024.3 : 댓글 수정 버튼의 댓글 영역 내로 이관된 조치에 따른 후속 조치(수정) : 인자 추가
+	getAllReplies(noticeNum, '[[${#authentication.name}]]');
+	
+	/* ***************************************************************************** */ 
+ 
+	// 댓글 작성 함수 : notice_view.js 파일로 함수 분리
+ 	writeReply(noticeNum, '[[${#authentication.name}]]');
+	
+	// 댓글 수정 함수 : 2024.3 : 댓글 수정 버튼의 댓글 영역 내로 이관된 조치에 따른 후속 조치(수정)
+	// updateReply(noticeNum, '[[${#authentication.name}]]');
+	
+	// 댓글 삭제 함수 : 2024.3 : 댓글 삭제 버튼의 댓글 영역 내로 이관된 조치에 따른 후속 조치(수정)
+	// deleteReplies(noticeNum, '[[${#authentication.name}]]');
+	
+	// (원)글 삭제 함수
+	deleteNotice(noticeNum, '[[${#authentication.name}]]');
+	
+} // onload
+</script>
+</head>
+<body>
+
+	<!-- layout -->
+	<div layout:fragment="content" class="main_sect_pnl" >
+
+		<div class="content_sect_pnl"><br>
+
+			<h2 class="d-flex justify-content-center">공지글 보기</h2>
+
+			<table class="table mx-auto mt-4" style="width: 800px;">
+			
+				<tr>
+					<th scope="col" class="col-2">공지글 번호</th>
+					<td th:text="${notice.noticeNum}" class="col-10"></td>
+				</tr>
+
+				<tr>
+					<th scope="col">작성자</th>
+					<td th:utext="${notice.noticeWriter}"></td>
+				</tr>
+
+				<tr>
+					<th scope="col">제목</th>
+					<td th:utext="${notice.noticeSubject}"></td>
+				</tr>
+
+				<tr>
+					<th scope="col">내용</th>
+					<td>							
+						<div class="mb-5" id="noticeContentDiv" th:utext="${notice.noticeContent}" contenteditable="false">
+						  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+						  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						</div>
+					</td>
+				</tr> 
+
+				<tr>
+					<th scope="col">첨부파일</th>
+					<td>
+						<span th:if="${#strings.isEmpty(notice.noticeFile)}">첨부 파일 없음</span>
+						
+						<a th:href="@{'/notice/download/'+${notice.noticeOriginalFile}+'/'+${notice.noticeFile}}" 
+						   th:if="${!#strings.isEmpty(notice.noticeOriginalFile)}" 
+						   th:utext="${notice.noticeOriginalFile}"></a> 
+					</td>
+				</tr> 
+				
+				<tr>
+					<th scope="col">등록일</th>
+					<td th:utext="${#dates.format(notice.noticeDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				</tr>
+
+			</table>
+			
+			<!-- -------------------------------------------------------------------------- -->
+			
+			<!-- 댓글 -->
+			
+			<!-- 댓글 영역  -->
+			<!-- <div id="reply_pnl" class="mx-auto my-3 border border-top border-primary-subtle" style="width: 800px;"> -->
+			
+			<div sec:authorize="hasRole('ROLE_ADMIN')" id="reply_pnl" class="mx-auto my-3" style="width: 800px;">
+			 
+				<!-- 개별 공지글 전체 댓글 리스트 -->
+				<div id="reply_list_pnl" class="bg-light my-3">
+				 	<!-- 댓글 리스트 --> 
+				</div>
+				 
+				<!-- 댓글 등록/수정 -->
+				<div id="reply_write_update_pnl" class="my-3">
+				 
+					<textarea id="reply_write_form" name="reply_write_form" 
+							  class="form-control border border-primary"
+							  placeholder="댓글을  100자이내로 작성하십시오"></textarea>
+				   
+				</div>
+				 
+				<!-- 댓글 메뉴 -->
+				<!-- 정렬 교정 -->
+				<div class="d-flex justify-content-end align-items-center my-2">
+					
+					<!-- 댓글 패쓰워드 -->
+					<!-- 정렬 교정 -->
+					<input type="text" th:id="${'notice_pass_' + notice.noticeNum}" 
+						   th:name="${'notice_pass_' + notice.noticeNum}" required 
+						   class="form-control form-control-sm h-100 w-25 me-2" placeholder="패쓰워드입력">
+					
+					<!-- 댓글 메뉴 -->
+					<a href="#" th:id="${'reply_write_btn_' + notice.noticeNum}" class="btn btn-sm btn-outline-primary my-2 me-2">댓글 등록</a>
+					
+					<!-- 댓글 수정/삭제 댓글 영역으로 이관 : 2024.3 -->
+					<!-- 
+					<a href="#" th:id="${'reply_update_btn_' + notice.noticeNum}" class="btn btn-outline-primary my-2 me-2">댓글 수정</a>
+					<a href="#" th:id="${'reply_delete_btn_' + notice.noticeNum}" class="btn btn-outline-primary my-2">댓글 삭제</a>
+					-->
+					
+				</div>	
+			
+			</div>
+			<!--// 댓글 영역  -->
+			
+			<!-- -------------------------------------------------------------------------- -->
+			
+			<div class="d-flex justify-content-center mb-3"> <!-- 간격 조정 : 2024.3 -->
+				<a type="button" class="btn btn-primary" th:href="@{/notice/list.do}">공지글 목록</a>
+				&nbsp;
+				
+				<!-- 글수정 링크 추가 -->
+				<!-- 글 작성자만 글수정/삭제하도록 조건 처리 -->
+				
+				<span th:if="${notice.noticeWriter == #authentication.name}">
+				
+					<a type="button" class="btn btn-primary" 
+						th:href="@{'/notice/update.do?noticeNum='+${notice.noticeNum}}">글수정</a>
+						
+					<!-- (원)글삭제 링크 추가 -->
+					
+					
+					<a type="button" class="btn btn-primary ms-2" 
+					    th:id="${'notice_delete_btn_' + notice.noticeNum}"
+						href="#">글삭제</a>
+					
+
+					
+				</span>	
+				<!--// 글 작성자만 글수정/삭제하도록 조건 처리 -->	
+			</div>
+
+		</div>
+		<!--// content -->
+
+	</div>
+	<!--// layout -->
+
+</body>
+</html>
