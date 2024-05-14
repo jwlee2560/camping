@@ -12,52 +12,44 @@
 
 <body>
 	<div layout:fragment="content">
-	 
-		  <div class="border border-secondary my-5 w-75 mx-auto">
-		      
-			   <div class="row w-100 ps-0">
-			   
-				    <ul class="row mb-2 list-unstyled list-group list-group-horizontal" > 
-					   
-					   <li class="col-6 pt-2 mt-4 ms-4 ps-4 me-0 px-0">
-					   	   <strong>지역</strong>
-						   <div class="mt-3 mx-0 px-0">
-							    <select class="form-select">
-								  <option>경기 동부</option>
-								  <option>경기 서부</option>
-								  <option>경기 남부</option>
-								  <option>경기 북부</option>
-								</select>
-							</div>
-						</li>
-							
-						<li class="col-5 pt-2 mt-4 ms-5 me-0 px-0">
-							<strong>주변시설</strong>
-							<div class="mt-3 mx-0 px-0">
-								<select class="form-select">
-								  <option>경기 동부</option>
-								  <option>경기 서부</option>
-								  <option>경기 남부</option>
-								  <option>경기 북부</option>
-								</select>
-							</div>
-						</li>
-					</ul>		
-			  	</div>
 		 
-			  <div class="row mx-auto mt-1 mb-5 ps-3">
-				   <ul class="list-unstyled" > 
-					  <li class="mt-2"><strong>키워드 검색</strong></li> 
-				   </ul>
-				   <div class="flex justify-content-center col-6"><input type="text" class="form-control" placeholder="검색어를 입력하세요."></div>
-				   <div class="flex justify-content-center col-3"><button class="btn btn-dark" type="submit">캠핑장 검색</button></div>
+		  <div class="border border-secondary my-5 w-75 mx-auto">
+		  
+			  <div class="container row justify-content-center">
+			  
+				   <div class="col-1 pt-2 mt-3 ms-0 me-0 px-0">지역</div>
+				   <div class="col-4 mt-3 mx-0 px-0">
+					    <select class="form-select">
+						  <option>경기 동부</option>
+						  <option>경기 서부</option>
+						  <option>경기 남부</option>
+						  <option>경기 북부</option>
+						</select>
+					</div>
+				  
+					<div class="col-1 pt-2 mt-3 ms-5 me-0 px-0">주변시설</div>
+					<div class="col-4 mt-3 mx-0 px-0">
+						<select class="form-select">
+						  <option>경기 동부</option>
+						  <option>경기 서부</option>
+						  <option>경기 남부</option>
+						  <option>경기 북부</option>
+						</select>
+					</div>
+			  </div>
+			  
+			  <div class="row mx-auto my-3">
+				  <div class="col-4"><input type="text" class="form-control" placeholder="검색어를 입력하세요."></div>
+				  <div class="col-2"><button class="btn btn-dark" type="submit">캠핑장 검색</button></div>
 			 </div>
+    
 		  </div>
 		 
 		  
 			<p style="margin-top:-12px">
 			    <em class="link">
 			        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+			            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
 			        </a>
 			    </em>
 			</p>
