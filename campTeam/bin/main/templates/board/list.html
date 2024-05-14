@@ -104,7 +104,7 @@ window.onload = function() {
 							<input type="checkbox" th:id="${'check_'+ board.boardNum}" th:name="${'check_'+ board.boardNum}">
 						</td>
 						<td th:text="${st.count + (pageVO.currPage - 1) * 10}"></td>
-						<td th:utext="${board.boardNum}"></td>
+						<td th:utext="${board.boardWriter}"></td>
 						<td>
 							<a th:href="@{'/board/view.do/'+ ${board.boardNum}}" th:utext="${board.boardSubject}"></a>
 							<!-- 글 내용 중 삽입 이미지 존재 여부 -->

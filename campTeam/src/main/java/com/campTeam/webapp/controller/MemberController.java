@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.campTeam.webapp.domain.CustomUser;
 import com.campTeam.webapp.domain.MemberDTO;
+import com.campTeam.webapp.domain.MemberDTO2;
 import com.campTeam.webapp.domain.MemberUpdateDTO;
 import com.campTeam.webapp.domain.MemberVO;
 import com.campTeam.webapp.service.MemberJpaService;
@@ -126,16 +127,16 @@ public class MemberController {
 			model.addAttribute("memberDTO", memberDTO);
 		} */
 		
-		MemberVO memberVO = memberJpaService.selectMember(id);
+		MemberDTO memberDTO = memberJpaService.selectMember(id);
 		
-		log.info("MemberVO : {}", memberVO);
+		log.info("MemberVO : {}", memberDTO);
 		
-		if (memberVO == null) {
+		if (memberDTO == null) {
 			// 에러 처리
 			model.addAttribute("errMsg", "회원 정보가 존재하지 않습니다.");
 			return "/error/error";
 		} else {
-			model.addAttribute("memberDTO", memberVO);
+			model.addAttribute("memberDTO", memberDTO);
 		} 
 		
 		return "/member/view";	
@@ -163,9 +164,9 @@ public class MemberController {
 		String id = customUser.getUsername();
 		
 		// MemberDTO memberDTO = memberService.selectMember(id);
-		MemberVO memberVO = memberJpaService.selectMember(id);
+		MemberDTO memberDTO = memberJpaService.selectMember(id);
 		
-		if (memberVO == null) {
+		if (memberDTO == null) {
 			// 에러 처리
 			model.addAttribute("errMsg", "회원 정보가 존재하지 않습니다.");
 			return "/error/error";
@@ -175,7 +176,7 @@ public class MemberController {
 			// 주의) ClassCastException 발생 가능성 있음
 			// MemberUpdateDTO memberUpdateDTO = (MemberUpdateDTO)memberDTO;
 			// MemberUpdateDTO memberUpdateDTO = new MemberUpdateDTO(memberDTO);
-			MemberUpdateDTO memberUpdateDTO = new MemberUpdateDTO(memberVO);
+			MemberUpdateDTO memberUpdateDTO = new MemberUpdateDTO(memberDTO);
 			// model.addAttribute("memberDTO", memberDTO);
 			model.addAttribute("memberUpdateDTO", memberUpdateDTO);
 			

@@ -5,7 +5,7 @@
 // 댓글 목록 읽어오기
 function getAllReplies(originalBoardId, boardWriter) {
 	
-	axios.get(`/memberProject/board/getRepliesAll.do?boardNum=${originalBoardId}`) 
+	axios.get(`/campingProject/board/getRepliesAll.do?boardNum=${originalBoardId}`) 
 		 .then(function(response) {
 			 
 			// alert("전체 댓글 가져오기");
@@ -188,7 +188,7 @@ function writeReply(originalBoardId, boardWriter) {
  			} else { 
 			 
  				// 전송			  
- 				axios.post('/memberProject/board/replyWrite.do', 
+ 				axios.post('/campingProject/board/replyWrite.do', 
  					{
 						boardNum : originalBoardId,
 						boardContent : replyWriteForm.value,
@@ -462,7 +462,7 @@ function updateReply(originalBoardId, replyBoardId, boardWriter) {
 			
 				// 전송	
 				// 주의) 여기서 boardNum 댓글 자체의 아이디입니다.		  
- 				axios.post('/memberProject/board/replyUpdate.do', 
+ 				axios.post('/campingProject/board/replyUpdate.do', 
  					{
 					    boardNum : replyBoardId,
 						boardContent : replyUpdateForm.value,
@@ -718,7 +718,7 @@ function deleteReply(originalBoardId, replyBoardId, boardWriter) {
 				
 				// 삭제를 위한 AJAX 전송
 				// 삭제할 댓글 아이디와 댓글 부모글(원글) 아이디 : 원글은 삭제 후 댓글 목록의 현황 갱신을 위한 전송 
-				axios.post(`/memberProject/board/replyDelete.do`,
+				axios.post(`/campingProject/board/replyDelete.do`,
 				{
 					boardNum : replyBoardId, // 삭제할 댓글 아이디
 					originalBoardNum : originalBoardId, // 댓글 목록 갱신을 위한 원글 아이디
@@ -909,7 +909,7 @@ function deleteBoard(boardNum, boardWriter) {
 				//  
 				let encodedPass = encodeURIComponent(boardDeletePass.value);
 				
-				let str = `/memberProject/board/deleteProc.do?boardNum=${boardNum}&boardPass=${encodedPass}`;
+				let str = `/campingProject/board/deleteProc.do?boardNum=${boardNum}&boardPass=${encodedPass}`;
 				
 				console.log('str : ', str);
 				

@@ -19,7 +19,7 @@
 
 	<!-- layout -->
 	
-	<div layout:fragment="content" class="d-flex align-items-center py-4 bg-body-tertiary text-center">
+	<div layout:fragment="content" class="d-flex align-items-center py-4 bg-body-tertiary text-center" style="height:600px">
 	
 	<main class="form-signin w-30 m-auto"><a th:href="@{/}">
 	<img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"></a>
@@ -49,7 +49,7 @@
 		           -->
 					<div class="form-floating">
 					<input type="text" id="username" name="username" size="30"
-						maxlength="20" placeholder="아이디" class="form-control mb-2"> <label for="username">Username</label>
+						maxlength="20" placeholder="아이디" class="form-control mb-2"> <label for="username">아이디</label>
 					</div>
 					<!-- 아이디 에러 메시징 -->
 					<div id="id_fld_err_pnl"></div>
@@ -73,7 +73,7 @@
 					<!-- <input type="password" id="password" name="password" size="30" maxlength="20" placeholder="패쓰워드"> -->
 					<div class="form-floating">
 					<input type="text" id="password" name="password" size="30"
-						maxlength="20" placeholder="패쓰워드" class="form-control mb-2"> <label for="password">Password</label>
+						maxlength="20" placeholder="패쓰워드" class="form-control mb-2"> <label for="password">패쓰워드</label>
 					</div>
 					<!-- 패쓰워드 에러 메시징 -->
 					<div id="password_fld_err_pnl"></div>
@@ -107,9 +107,9 @@
                3) 내부 라벨 : 회원가입
            -->
 					<!-- 회원 가입 링크 -->
-					<!-- <input type="button" id="join_btn" value="회원가입" class="btn btn-primary w-20 float-none" 
-						   onclick="location.href='/campTeam/member/join.do'"/>
-				</div> -->
+					<input type="button" id="join_btn" value="회원가입" class="btn btn-primary w-50 float-none" 
+						   onclick="location.href='/campingProject/member/join.do'"/>
+				</div>
 				<!-- 5. 전송 버튼 필드 섹션 끝 -->
 
 			</form>
