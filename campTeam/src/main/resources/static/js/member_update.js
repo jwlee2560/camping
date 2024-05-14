@@ -554,7 +554,7 @@ window.onload = function(e) {
 		
 		// emailDuplicatedCheckFlag = checkEmailDuplicated(idFld, emailFld, emailDuplicatedCheckFlag, emailFldErrPnl);
 		
-		axios.get(`/memberProject/member/hasFldForUpdate/${idFld.value}/email/${emailFld.value}`)
+		axios.get(`/campingProject/member/hasFldForUpdate/${idFld.value}/email/${emailFld.value}`)
 			 .then(function(response) {
 				
 				emailDuplicatedCheckFlag = response.data;
@@ -586,7 +586,7 @@ window.onload = function(e) {
 		// 중복 점검 REST 주소(회원 정보 수정 전용)/인자(id 추가) 변경
 		var idFld = document.getElementById("id"); // 아이디 필드
 	
-		axios.get(`/memberProject/member/hasFldForUpdate/${idFld.value}/mobile/${mobileFld.value}`)
+		axios.get(`/campingProject/member/hasFldForUpdate/${idFld.value}/mobile/${mobileFld.value}`)
 			 .then(function(response) {
 				
 				mobileDuplicatedCheckFlag = response.data;

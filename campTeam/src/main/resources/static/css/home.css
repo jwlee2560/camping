@@ -1,0 +1,139 @@
+/* Google Web Font */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
+
+.Slidesbackground {
+    margin: 0;
+    padding: 0;
+
+}
+.slideshow-image{
+    width: 100%;
+    height: 800px;
+    overflow: hidden;
+}
+.mySlides {
+    width: 100%;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slideshow-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: auto;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 10s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .77
+    }
+    to {
+        opacity: 1
+    }
+}
+.m_title {
+    width: 100%;
+    position: absolute;
+    z-index: 3;
+    text-align: center;
+    color: #fff;
+    top: 35%;
+    text-shadow: 2px 2px 3px rgb(0, 0, 0);
+}
+.m_title .m_title_01 {
+    font-size: 40px;
+    font-family: BM_dh;
+}
+.m_title .m_title_01 > span {
+    font-size: 57px;
+    font-family: BM_dh;
+}
+.m_title .s_title01 {
+    font-size: 28px;
+    clear: both;
+    margin: 30px 0 0 0;
+    letter-spacing: -2px;
+}
+
+.search_box .search_box_form .form1_2 .tt {
+    display: block;
+    float: left;
+    color: #fff;
+    width: 86px;
+    text-align: left;
+    font-size: 16px;
+    line-height: 44px;
+}
+
+.search_box .search_box_form .form1_2 select.select_01 {
+    font-size: 13px;
+    width: 170px;
+    padding: 0 0 0 19px;
+    height: 44px;
+    line-height: 44px;
+    border-radius: 5px;
+    border: 0;
+    box-sizing: border-box;
+}
+
+form.search_box_form {
+	background-color: rgba(255, 187, 0, 0.8);
+	width: 700px;
+	height: 250px;
+	position: absolute;
+	top: 75%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	
+}
+
+ .btnSearch_black01 {
+    width: 95px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    background: #333;
+    border-radius: 5px;
+    float: right;
+}
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+/* rtl:begin:ignore */
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+/* rtl:end:ignore */
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+/* rtl:begin:remove */
+.featurette-heading {
+  letter-spacing: -.05rem;
+}
+
+/* rtl:end:remove */

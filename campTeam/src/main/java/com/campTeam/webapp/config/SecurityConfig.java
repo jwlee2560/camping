@@ -88,7 +88,19 @@ public class SecurityConfig {
 						                .requestMatchers("/member/updateRoles/**", "/member/changeMemberState/**", 
 						                			     "/member/updateMemberByAdmin/**", "/member/deleteMemberByAdmin/**").authenticated()
 						                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-						                .requestMatchers("/content1", "/content2", "/about.do", "/notice.do", "/searchlist.do").permitAll()	
+						                .requestMatchers("/content1", "/content2", "/about.do").permitAll()
+						                
+						                // 공지사항 관련 링크 추가
+						                 .requestMatchers("/searchlist.do",
+						                		 		  "/notice/image", "/notice/image/**", "/notice/list.do", 
+						                		 		  "/notice/view.do/**", "/notice/searchList.do").permitAll()
+						                
+						                .requestMatchers("/notice/write.do","/notice/writeProc.do",
+						                				 "/notice/update.do", "/notice/updateProc.do",
+							                			 "/notice/replyWrite.do", "/notice/replyUpdate.do", 
+							                			 "/notice/getRepliesAll.do", "/notice/replyDelete.do",
+							                			 "/notice/deleteProc.do").authenticated()
+						                
 						                //
 						                // 게시판 관련 링크 추가
 						                .requestMatchers("/board/write.do","/board/writeProc.do",
@@ -124,7 +136,7 @@ public class SecurityConfig {
           
           
           http.rememberMe((remember) -> remember
-					.key("campTeam")
+					.key("campingProject")
 					.userDetailsService(userDetailsService)
 					.tokenRepository(getJDBCRepository())
 					.tokenValiditySeconds(60 * 60 * 24)); // 24시간(1일)

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping(value = {"board", "notice"}) // notice 경로 추가 (24.05.08)
 @Slf4j
 public class FileDownloadController {
 

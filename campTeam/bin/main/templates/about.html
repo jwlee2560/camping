@@ -1,334 +1,108 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}">
-<div layout:fragment="content">
-    
-     
-     <!-- Service Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="text-center " data-wow-delay="0.1s">
-                    <h5 class="section-title ff text-center text fw-normal">소개</h5>
-                    <h1 class="mb-5">5대 질병에 대하여</h1>
-                </div>
-                <div class="row row-cols-5"> 
-                    <div class="col fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x  text-primary mb-4"></i>
-                                <h5>고혈압</h5>
-                                <p class="slide-pnl-styl">혈압이 여러 원인으로 인해 높아진 상태를 의미합니다. 혈압은 동맥혈관 벽에 대항한 혈액의 압력을 말합니다.</p>
-    						
-    						
-    						<!-- The Modal -->
-    						<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#myModal">
- 							 About
-							</button>
+	  layout:decorate="~{layout}">    
 
-								<div class="modal fade" id="myModal">
-								  <div class="modal-dialog modal-xl modal-dialog-centered">
-								    <div class="modal-content">
-								
-								      <!-- Modal Header -->
-								      <div class="modal-header text-black"  >
-								        <h4 class="modal-title text-black">고혈압</h4>
-								        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								      </div>
-								
-								      <!-- Modal body -->
-								       <!-- Vertically centered scrollable modal -->
-								      <div class="modal-body text-black">
-								          <h2 class="fs-5">정의</h2>
-										  <p><mark>고혈압</mark>은 혈압이 여러 원인으로 인해 높아진 상태를 의미합니다. 혈압은 동맥혈관 벽에 대항한 혈액의 압력을 말합니다.
-										  혈액의 압력은 심장이 수축하여 동맥혈관으로 혈액을 보낼 때 가장 높은데, 이때의 혈압을 수축기 혈압이라고 합니다.
-										   또한 심장이 늘어나서 혈액을 받아들일 때 가장 낮은데, 이때의 혈압을 이완기 혈압이라고 합니다.
-										   우리나라 성인 인구의 약 30%가 이러한 혈압이 높아진 증상인 고혈압이 있는 것으로 추정됩니다</p>
-										  <hr>		
-										  <h2 class="fs-5">유발하는 요인</h2>
-										  <p>① 심혈관 질환의 가족력(유전)
-											② 흡연
-											③ 고지혈증
-											④ 당뇨병
-											⑤ 60세 이후 노년층
-											⑥ 성별(남성과 폐경 이후 여성)
-											⑦ 식사성 요인 : Na, 지방 및 알코올의 과잉 섭취, K, Mg, Ca의 섭취 부족
-											⑧ 약물 요인 : 경구 피임약, 제산제, 항염제, 식욕억제제</p>
-											<hr>		
-										  <h2 class="fs-5">주의사항</h2>
-										  <p> <mark>식사 요법</mark>은 고혈압 관리에 매우 중요합니다.
-											 우선 체중 조절, 염분 섭취 제한, 알코올 섭취 제한 등 생활습관을 교정하도록 노력해야 합니다.
-											 특히 체중 조절이 가장 중요합니다. 과체중이나 비만 환자의 경우에는 저열량식을 시행하여 체중을 감량해야 합니다.
-											 다만 섭취 열량을 제한하면 단백질 섭취가 제한될 수 있습니다. 신장 기능이 정상으로 유지되는 한 체중 kg당 1~1.5g의 양질의 단백질을 충분히 공급해야 합니다.
-											 또한 칼슘 섭취량을 증가시키고, 섬유소와 불포화지방산의 섭취 비율을 증가시키며, 카페인을 적절히 제한하도록 권장합니다.
-									 	  </p>
-								      </div>
-								
-								      <!-- Modal footer -->
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-								      </div>
-								
-								    </div>
-								  </div>
-								</div>      
-								     <!-- Modal End -->         
-								           
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x  text-primary mb-4"></i>
-                                <h5>위암</h5>
-                                <p class="slide-pnl-styl">일반적으로 위 선암을 말하며 위의 점막에서 발생합니다. 시간이 지남에 따라 점막하층, 근육층, 장막하층, 장막층으로 침윤합니다.</p>
-                           
-                           <!-- The Modal -->
-    						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal1">
- 							 About
-							</button>
+<head>
+    <meta charset="utf-8">
+    <title>주소로 장소 표시하기</title>
+   
+</head>
 
-								<div class="modal fade" id="myModal1">
-								  <div class="modal-dialog modal-xl modal-dialog-centered">
-								    <div class="modal-content">
-								
-								      <!-- Modal Header -->
-								      <div class="modal-header text-black"  >
-								        <h4 class="modal-title text-black">위암</h4>
-								        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								      </div>
-								
-								      <!-- Modal body -->
-								       <!-- Vertically centered scrollable modal -->
-								      <div class="modal-body text-black">
-								          <h2 class="fs-5">정의</h2>
-										  <p><mark>위암</mark>  일반적으로 위 선암을 말하며 위의 점막에서 발생합니다. 
-										  시간이 지남에 따라 점막하층, 근육층, 장막하층, 장막층으로 침윤합니다. 위암은 점막 또는 점막하층을 따라 위 내에 넓게 퍼지기도 하고, 점막층에서 장막층을 향해 깊이 퍼지기도 합니다. 
-										  위 주변의 임파선을 따라서, 혹은 혈류의 파급에 의해 간, 폐, 뼈 등의 여러 부위로 퍼질 수 있습니다.</p>
-										  <hr>		
-										  <h2 class="fs-5">유발하는 요인</h2>
-										  <p>
-											① 만성 위축성 위염
-											② 장 이형성
-											③ 위소장 문합술 
-											④ 식이 요인 
-											⑤ 헬리코박터 파일로리균(Helicobacter pylori) 감염 
-											⑥ 유전 요인
-											⑦ 환경적 요인 </p>
-										  <hr>		
-										  <h2 class="fs-5">주의사항</h2>
-										  <p> 발병의 중요한 원인으로<mark>식이 요인</mark>을 들 수 있습니다. 그러므로 질산염 화합물(식품처리제, 염장식품, 가공육류, 훈제식품), 고염 식품(염장 채소, 염장 생선), 불에 태운 음식, 술, 담배 등은 피해야 합니다.
-											 위암의 위험 요인을 피하는 것이 도움이 됩니다. 위암의 위험 요인으로 높은 연령, 남성, 훈제나 소금에 절인 음식, 흡연, 위축성 위염, 헬리코박터 파일로리(Helicobacter pylori) 균 감염, 메네트리에(Menetrier) 병(위 점막이 비후되는 병), 악성 빈혈(빈혈의 일종으로, 빈혈이 심한 경우를 의미하지는 않습니다), 가족성 용종증 등이 있습니다.
- 											 익히지 않은 채소, 과일, 섬유질을 많이 섭취하는 사람에게서는 위암이 잘 발생하지 않는 것으로 알려져 있습니다.
-									 	  </p>
-								      </div>
-								
-								      <!-- Modal footer -->
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-								      </div>
-								
-								    </div>
-								  </div>
-								</div>      
-								     <!-- Modal End -->     
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col fadeInUp" data-wow-delay="0.7s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x  text-primary mb-4"></i>
-                                <h5>고지혈증</h5>
-                                <p class="slide-pnl-styl">혈중에 지질 성분이 증가한 상태이다. 혈관벽에 쌓여 죽상경화증을 일으키거나 다른 질환을 유발할 수 있다.</p>
-                               
-                          <!-- The Modal -->
-    						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal2">
- 							 About
-							</button>
-
-								<div class="modal fade" id="myModal2">
-								  <div class="modal-dialog modal-xl modal-dialog-centered">
-								    <div class="modal-content">
-								
-								      <!-- Modal Header -->
-								      <div class="modal-header text-black"  >
-								        <h4 class="modal-title text-black">고지혈증</h4>
-								        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								      </div>
-								
-								      <!-- Modal body -->
-								       <!-- Vertically centered scrollable modal -->
-								      <div class="modal-body text-black">
-								          <h2 class="fs-5">정의</h2>
-										  <p><mark>고지혈증</mark>은 혈중에 지질 성분이 증가한 상태이다. 혈관벽에 쌓여 죽상경화증을 일으키거나 다른 질환을 유발할 수 있다.
-										  비슷한 용어로 비정상적인 혈액 내 지질상태를 이상지질혈증(dyslipidemia)으로 칭하기도 한다.</p>
-										  <hr>		
-										  <h2 class="fs-5">유발하는 요인</h2>
-										  <p>유전적인 요인으로 인해 혈액 내에 특정 지질이 증가하여 고지혈증이 발생할 수도 있고,
-										    비만이나 술, 당뇨병 등과 같은 다른 원인에 의해서도 생길 수 있다.
-											① 과도한  음식물 섭취
-											② 유전적 요인
-											③ 술
-											④ 체중 증가 (비만증)
-											⑤ 당뇨
-											 </p>
-										  <hr>		
-										  <h2 class="fs-5">주의사항</h2>
-										  <p>  적절한 <mark>식이요법과 운동요법</mark>이 필요하다. 과체중 상태라면 점진적으로 체중을 줄이는 것이 도움이 된다. 다른 심혈관계 위험인자가 있을 경우 이에 대한 조절이 필요하다.
-											섭취하는 지방량을 총 섭취 칼로리의 25~35%로 제한한다. 특히 쇠기름, 돼지기름 등의 모든 동물성 기름과 버터, 쇼트닝, 코코넛 기름과 팜유 등의 포화지방산은 전체 칼로리의 10% 미만으로 제한하고, 오메가 3계 지방산(주로 등푸른 생선, 참치, 삼치, 꽁치, 고등어, 연어, 청어, 숭어, 정어리 등에 들어있음)과 오메가 6계 지방산(옥수수 기름, 면실유, 해바라기씨 기름 등)으로 구성된 다가불포화지방산(polyunsaturated fat)은 총 칼로리의 10% 이하로, 올리브기름, 땅콩기름, 카놀라유 등에 많은 단가불포화지방산(monounsaturated fat)은 총 칼로리의 20% 이하로 제한한다.
-											또한 탄수화물(특히 단순당)을 지나치게 많이 섭취할 경우 중성지방이 증가하고 HDL-콜레스테롤은 감소할 수 있으므로 주의한다.
-									 	  </p>
-								      </div>
-								
-								      <!-- Modal footer -->
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-								      </div>
-								
-								    </div>
-								  </div>
-								</div>      
-								     <!-- Modal End -->     
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col fadeInUp" data-wow-delay="0.9s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x  text-primary mb-4"></i>
-                                <h5>치매</h5>
-                                <p class="slide-pnl-styl">후천적으로 기억, 언어, 판단력 등의 여러 영역의 인지 기능이 감소하여 일상생활을 제대로 수행하지 못하는 임상 증후군을 의미합니다.</p>
-                        <!-- The Modal -->
-    						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal3">
- 							 About
-							</button>
-
-								<div class="modal fade" id="myModal3">
-								  <div class="modal-dialog modal-xl modal-dialog-centered">
-								    <div class="modal-content">
-								
-								      <!-- Modal Header -->
-								      <div class="modal-header text-black"  >
-								        <h4 class="modal-title text-black">치매</h4>
-								        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								      </div>
-								
-								      <!-- Modal body -->
-								       <!-- Vertically centered scrollable modal -->
-								      <div class="modal-body text-black">
-								          <h2 class="fs-5">정의</h2>
-										  <p> 치매는 후천적으로 기억, 언어, 판단력 등의 여러 영역의 인지 기능이 감소하여 일상생활을 제대로 수행하지 못하는 임상 증후군을 의미합니다.
-										   치매에는 알츠하이머병이라 불리는 노인성 치매, 중풍 등으로 인해 생기는 혈관성 치매가 있습니다.</p>
-										  <hr>		
-										  <h2 class="fs-5">유발하는 요인</h2>
-										  <p>  전반적인 뇌 기능의 손상을 일으킬 수 있는 모든 질환이 치매의 원인이 될 수 있습니다. 흔히 알고 있는 알츠하이머병은 원인 미상의 신경퇴행성 질환으로, 전체 치매의 50~60%를 차지합니다. 뇌의 혈액순환장애에 의한 혈관성 치매가 20~30%를 차지합니다. 나머지는 기타 원인에 의한 치매입니다. 
-											 알츠하이머병은 두뇌의 수많은 신경세포가 서서히 쇠퇴하면서 뇌 조직이 소실되고 뇌가 위축되는 질환입니다. 이 질환의 원인은 명확하게 밝혀지지 않았습니다. 뇌세포의 유전적 질환이 아닌지에 대한 연구가 지속적으로 이루어지고 있습니다. 다만 유전적 이상이 없는 상태에서 발병하는 알츠하이머병이 80% 이상을 차지하고 있습니다. 아직 명확하게 알려진 부분이 없습니다. 
- 											 혈관성 치매는 뇌 안에서 혈액순환이 잘 이루어지지 않아 서서히 신경세포가 죽거나, 갑자기 큰 뇌혈관이 막히거나 뇌혈관이 터지면서 뇌세포가 죽으면서 발생하는 치매를 의미합니다.  
-											 </p>
-										  <hr>		
-										  <h2 class="fs-5">주의사항</h2>
-										  <p> 일반적으로 권장되는 것은 두뇌 회전을 많이 시킬 수 있는 건전한 수준의 게임, 바둑, 카드놀이와 같은 종합적인 인지 능력을 요구하는 놀이가 건망증을 예방하는 데 도움이 됩니다. 신문, 책을 읽거나 글을 쓰는 것이 효과적인 예방법입니다. <mark>건강한 식습관</mark>을 가지고 생선과 야채를 즐겨 먹어야 합니다. 
-										  꾸준한 걷는 운동은 인지 기능을 유지하는 데 도움이 됩니다. 지나친 음주와 흡연을 삼가야 하고 충분한 수면을 취하는 것이 좋습니다. 메모하는 생활을 습관화하는 것이 좋습니다.
-									 	  </p>
-								      </div>
-								
-								      <!-- Modal footer -->
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-								      </div>
-								
-								    </div>
-								  </div>
-								</div>      
-								     <!-- Modal End -->     
-                                
-                            </div>
-                        </div>
-                    </div>
-                
-            
-                    <div class="col fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x  text-primary mb-4"></i>
-                                <h5>당뇨</h5>
-                                <p class="slide-pnl-styl">췌장에서 분비되는'인슐린'이라는 호르몬이 모자라거나 제대로 일을 못 하는 상태가 되면 혈당이 상승하며, 지속적으로 높은 상태가 됩니다.
-							   </p>
-                                 <!-- The Modal -->
-    						<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#myModal4">
- 							 About
-							</button>
-
-								<div class="modal fade" id="myModal4">
-								  <div class="modal-dialog modal-xl modal-dialog-centered">
-								    <div class="modal-content">
-								
-								      <!-- Modal Header -->
-								      <div class="modal-header text-black"  >
-								        <h4 class="modal-title text-black">당뇨병</h4>
-								        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-								      </div>
-								
-								      <!-- Modal body -->
-								       <!-- Vertically centered scrollable modal -->
-								      <div class="modal-body text-black">
-								          <h2 class="fs-5">정의</h2>
-										  <p><mark>당뇨병</mark>은 소변으로 포도당이 배출된다고 하여 이름 붙여진 병입니다. 췌장에서 분비되는 '인슐린'이라는 호르몬이 모자라거나 제대로 일을 못 하는 상태가 되면 혈당이 상승하며, 이로 인해 혈당이 지속적으로 높은 상태가 됩니다.
-										   이러한 상태를 당뇨병이라고 합니다. 우리나라의 유병률은 경제가 발전하고 생활 양식이 서구화됨에 따라 증가하는 추세입니다.</p>
-										  <hr>		
-										  <h2 class="fs-5">유발할 수 있는 환경 인자</h2>
-										  <p> 
-											① 과도한  음식물 섭취
-											② 운동량 감소
-											③ 약물(스테로이드제제, 면역억제제, 이뇨제)
-											④ 체중 증가 (비만증)
-											⑤ 고령
-											⑥ 스트레스
-											⑦ 임신
-											⑧ 감염</p>
-										  <hr>		
-										  <h2 class="fs-5">주의사항</h2>
-										  <p> 당뇨병을 예방하기 위해서는 <mark>비만, 좌식 생활, 고지방 식사, 스트레스, 음주</mark> 등을 피하는 것이 최선입니다.
-										  	 특히 가족 중에 당뇨병 환자가 있는 사람은 비만증이 생기지 않도록 식사량을 적절히 조절하고, 운동을 규칙적으로 해야 합니다.
-											 또한 무증상기의 당뇨병을 조기에 진단하기 위해서 다음에 해당하는 사람들은 매년 혈당 검사를 받을 것을 권장하고 있습니다.
-											① 45세 이상의 모든 성인
-											② 45세 미만이라도 과체중이거나 비만이면서 아래와 같은 위험 요인이 있는 경우
-											- 부모, 형제, 자식 중에 당뇨병 환자가 있는 사람
-											- 고혈압(혈압 140/90mmHg 이상)이 있거나 항고혈압 약물을 복용 중인 사람
-											- 이상지혈증을 가지고 있는 사람(HDL 콜레스테롤 35mg/dl 이하 또는 중성지방 250mg/dl 이상)
-											- 과거 내당능 장애 또는 공복 혈당 장애가 있었던 사람
-											- 임신성 당뇨병으로 진단받은 적이 있거나 4kg 이상의 거대아를 출산한 적이 있는 사람
-											- 심혈관 질환(뇌졸중, 관상동맥 질환, 말초혈관 질환)을 경험한 사람
-											- 평소에 운동을 하지 않는 사람
-									 	  </p>
-								      </div>
-								
-								      <!-- Modal footer -->
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-								      </div>
-								
-								    </div>
-								  </div>
-								</div>      
-								     <!-- Modal End -->     
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-    
-        </div>
-        <!-- Service End -->
-        
-
-
-</div>
-
+<body>
+	<div layout:fragment="content">
+	 
+		  <div class="border border-secondary my-5 w-75 mx-auto">
+		      
+			   <div class="row w-100 ps-0">
+			   
+				    <ul class="row mb-2 list-unstyled list-group list-group-horizontal" > 
+					   
+					   <li class="col-6 pt-2 mt-4 ms-4 ps-4 me-0 px-0">
+					   	   <strong>지역</strong>
+						   <div class="mt-3 mx-0 px-0">
+							    <select class="form-select">
+								  <option>경기 동부</option>
+								  <option>경기 서부</option>
+								  <option>경기 남부</option>
+								  <option>경기 북부</option>
+								</select>
+							</div>
+						</li>
+							
+						<li class="col-5 pt-2 mt-4 ms-5 me-0 px-0">
+							<strong>주변시설</strong>
+							<div class="mt-3 mx-0 px-0">
+								<select class="form-select">
+								  <option>경기 동부</option>
+								  <option>경기 서부</option>
+								  <option>경기 남부</option>
+								  <option>경기 북부</option>
+								</select>
+							</div>
+						</li>
+					</ul>		
+			  	</div>
+		 
+			  <div class="row mx-auto mt-1 mb-5 ps-3">
+				   <ul class="list-unstyled" > 
+					  <li class="mt-2"><strong>키워드 검색</strong></li> 
+				   </ul>
+				   <div class="flex justify-content-center col-6"><input type="text" class="form-control" placeholder="검색어를 입력하세요."></div>
+				   <div class="flex justify-content-center col-3"><button class="btn btn-dark" type="submit">캠핑장 검색</button></div>
+			 </div>
+		  </div>
+		 
+		  
+			<p style="margin-top:-12px">
+			    <em class="link">
+			        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+			        </a>
+			    </em>
+			</p>
+			<div id="map" style="width:100%;height:600px;"></div>
+			
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902b7b97c1c375075b85e37ed1d667bf&libraries=services"></script>
+			<script>
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };  
+			
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+			        });
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			});    
+			</script>
+	</div>
+</body>
 </html>
+

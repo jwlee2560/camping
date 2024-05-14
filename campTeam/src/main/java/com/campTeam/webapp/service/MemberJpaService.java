@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.campTeam.webapp.dao.MemberJpaCustomDAO;
 import com.campTeam.webapp.dao.MemberJpaDAO;
+import com.campTeam.webapp.dao.MemberJpaDAO2;
 import com.campTeam.webapp.dao.MemberJpaRoleDAO;
 import com.campTeam.webapp.domain.MemberDTO;
+import com.campTeam.webapp.domain.MemberDTO2;
 import com.campTeam.webapp.domain.MemberRoleVO;
 import com.campTeam.webapp.domain.MemberVO;
 import com.campTeam.webapp.domain.Role;
@@ -28,6 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MemberJpaService {
 
+//	@Autowired
+//	MemberJpaDAO2 memberJpaDAO2;
+	
 	@Autowired
 	MemberJpaDAO memberJpaDAO;
 	
@@ -38,7 +43,7 @@ public class MemberJpaService {
 	MemberJpaCustomDAO memberJpaCustomDAO; 
 	
 	@Transactional(readOnly = true)
-	public MemberVO selectMember(String id) {
+	public MemberDTO selectMember(String id) {
 		return memberJpaDAO.findById(id);
 	}
 	
@@ -203,7 +208,7 @@ public class MemberJpaService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<MemberVO> selectMembersByPaging(int page, int limit) {
+	public List<MemberDTO> selectMembersByPaging(int page, int limit) {
 		
 		Pageable pageable = PageRequest.of(page-1, limit, Sort.by(Direction.DESC, "id"));
 		return memberJpaDAO.findAll(pageable).getContent();

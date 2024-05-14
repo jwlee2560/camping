@@ -100,7 +100,7 @@ window.onload = function() {
 			// 메시지
 			let msg = "";
 			 
-			axios.get(`/memberProject/member/updateRoles/${id}/roleUser/${roleUser.checked}/roleAdmin/${roleAdmin.checked}`)
+			axios.get(`/campingProject/member/updateRoles/${id}/roleUser/${roleUser.checked}/roleAdmin/${roleAdmin.checked}`)
 				 .then(function(response) {
 					
 						let responseData = response.data;
@@ -173,7 +173,7 @@ window.onload = function() {
 			
 			console.log("회원 상태 변경 : ",  id, ', ', enabled);
 			
-			axios.get(`/memberProject/member/changeMemberState/${id}/${enabled}`)
+			axios.get(`/campingProject/member/changeMemberState/${id}/${enabled}`)
 				 .then(function(response) {
 					
 						console.log("response.data === true : ", response.data === true);
@@ -268,7 +268,7 @@ window.onload = function() {
 				// 휴대폰 중복 점검 플래그
 				let mobileDuplicatedCheckFlag = false;
 				
-				axios.get(`/memberProject/member/hasFldForUpdate/${id}/mobile/${mobileFld.value}`)
+				axios.get(`/campingProject/member/hasFldForUpdate/${id}/mobile/${mobileFld.value}`)
 				 .then(function(response) {
 					
 					mobileDuplicatedCheckFlag = response.data;
@@ -300,13 +300,13 @@ window.onload = function() {
 					
 					// 변경할 회원 정보 전송
 					// case-1
-					// axios.get(`/memberProject/member/updateMemberByAdmin/${id}/mobile/${mobileFld.value}`)
+					// axios.get(`/campingProject/member/updateMemberByAdmin/${id}/mobile/${mobileFld.value}`)
 					
 					// case-2
 					// post 방식
 					axios({
 							method : "post",
-							url : '/memberProject/member/updateMemberByAdmin',
+							url : '/campingProject/member/updateMemberByAdmin',
 							data : {
 								id : id,	
 								mobile : mobileFld.value
@@ -357,7 +357,7 @@ window.onload = function() {
 				
 				alert(`${id} 님의 회원 정보를 삭제하겠습니다.`);
 				
-				axios.get(`/memberProject/member/deleteMemberByAdmin/${id}`)
+				axios.get(`/campingProject/member/deleteMemberByAdmin/${id}`)
 				 .then(function(response) {
 					
 					console.log("response.data : ", response.data);
