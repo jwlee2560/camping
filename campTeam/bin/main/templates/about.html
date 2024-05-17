@@ -1,107 +1,226 @@
- <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}">    
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 
 <head>
-    <meta charset="utf-8">
-    <title>주소로 장소 표시하기</title>
-   
+<meta charset="utf-8">
+<title>주소로 장소 표시하기</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	$(function() {
+
+		// https://developers.kakaomobility.com/docs/navi-api/directions/
+		// 
+		// curl -v -X GET "https://apis-navi.kakaomobility.com/v1/directions?origin=127.11015314141542,37.39472714688412&destination=127.10824367964793,37.401937080111644&waypoints=&priority=RECOMMEND&car_fuel=GASOLINE
+		//			&car_hipass=false&alternatives=false&road_details=false" 
+		//	 -H "Authorization: KakaoAK KAKAO REST API KEY"
+		console.log("테스트");
+
+		let region = document.getElementById("region");
+		let thema = document.getElementById("thema");
+		let searchWord = document.getElementById("searchWord");
+		
+		console.log("지역:",region.value)
+		console.log("테마:",thema.value)
+		console.log("검색어:",searchWord.value)
+		
+		$("#search-btn").click(function(e) {
+				
+			alert("전송")
+			
+			$.ajax({
+				method : 'get',
+				url : '/campTeam/mapRest',
+				data : {
+					region : $('#region').val(),
+					thema : $("#thema").val(),
+					searchWord : $('#searchWord').val()
+				}
+			})
+			.done(function(response, status, xhr) {
+
+				alert(status);
+
+				if (status == "nocontent") {
+
+					alert("해당 정보가 없습니다.");
+
+				} else if (status == 'success') {
+
+					console.log("response : ", response);
+					console.log("캠프장-1 : ", response[0]);
+					console.log("캠프장-1 위도 : ", response[0].latitude);
+					console.log("캠프장-1 경도 : ", response[0].longitude);
+
+					var container = document.getElementById('map');
+
+					var options = {
+						center: new kakao.maps.LatLng(response[0].latitude, response[0].longitude),
+						level: 8
+					};
+
+					var map = new kakao.maps.Map(container, options);
+
+					// 다중 마커 표시
+					var positions = [];
+
+					// 마커 이미지
+					var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+					 // 마커 이미지의 이미지 크기 입니다
+				    var imageSize = new kakao.maps.Size(24, 35);
+
+				    // 마커 이미지를 생성합니다
+				    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+				    let camp = { title : '', latlng : '' };
+
+					for (var i=0; i<response.length; i++) {
+
+						camp.title = response[i].campName;
+						camp.latlng = new kakao.maps.LatLng(response[i].latitude, response[i].longitude);
+
+						positions[i] = camp;
+						
+					    // 마커 생성
+					    var marker = new kakao.maps.Marker({
+					        map: map, // 마커를 표시할 지도
+					        position: positions[i].latlng, // 마커를 표시할 위치
+					        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+					        image : markerImage // 마커 이미지
+					    });
+
+					} // for
+				} // success (http status 200)
+
+			}) // done
+			.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
+
+				// alert(data.status);
+				alert("서버에 문제가 발생하였습니다.");
+				console.log("data : ", data);
+				console.log("상태 코드 : ", data.status);
+				console.log("xhr : ", xhr);
+			})
+		}); // ajax
+		
+		////////////////////////////////////////////////////////
+		
+			
+	});
+</script>
+
 </head>
 
 <body>
 	<div layout:fragment="content">
-	 
-		  <div class="border border-secondary my-5 w-75 mx-auto">
-		      
-			   <div class="row w-100 ps-0">
-			   
-				    <ul class="row mb-2 list-unstyled list-group list-group-horizontal" > 
-					   
-					   <li class="col-6 pt-2 mt-4 ms-4 ps-4 me-0 px-0">
-					   	   <strong>지역</strong>
-						   <div class="mt-3 mx-0 px-0">
-							    <select class="form-select">
-								  <option>경기 동부</option>
-								  <option>경기 서부</option>
-								  <option>경기 남부</option>
-								  <option>경기 북부</option>
-								</select>
-							</div>
-						</li>
-							
-						<li class="col-5 pt-2 mt-4 ms-5 me-0 px-0">
-							<strong>주변시설</strong>
-							<div class="mt-3 mx-0 px-0">
-								<select class="form-select">
-								  <option>경기 동부</option>
-								  <option>경기 서부</option>
-								  <option>경기 남부</option>
-								  <option>경기 북부</option>
-								</select>
-							</div>
-						</li>
-					</ul>		
-			  	</div>
-		 
-			  <div class="row mx-auto mt-1 mb-5 ps-3">
-				   <ul class="list-unstyled" > 
-					  <li class="mt-2"><strong>키워드 검색</strong></li> 
-				   </ul>
-				   <div class="flex justify-content-center col-6"><input type="text" class="form-control" placeholder="검색어를 입력하세요."></div>
-				   <div class="flex justify-content-center col-3"><button class="btn btn-dark" type="submit">캠핑장 검색</button></div>
-			 </div>
-		  </div>
-		 
-		  
-			<p style="margin-top:-12px">
-			    <em class="link">
-			        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-			        </a>
-			    </em>
-			</p>
-			<div id="map" style="width:100%;height:600px;"></div>
-			
-			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902b7b97c1c375075b85e37ed1d667bf&libraries=services"></script>
-			<script>
+
+		<div class="border border-secondary my-5 w-75 mx-auto">
+
+			<div class="row w-100 ps-0">
+
+				<ul class="row mb-2 list-unstyled list-group list-group-horizontal">
+
+					<li class="col-6 pt-2 mt-4 ms-4 ps-4 me-0 px-0">
+						<strong>지역</strong>
+						<div class="mt-3 mx-0 px-0">
+							<select id="region" name="region" class="form-select">
+								<option>경기 남부</option>
+								<option>경기 북부</option>
+							</select>
+						</div></li>
+
+					<li class="col-5 pt-2 mt-4 ms-5 me-0 px-0">
+						<strong>주변시설</strong>
+						<div class="mt-3 mx-0 px-0">
+							<select id="thema" name="thema" class="form-select">
+								<option>체험시설</option>
+								<option>계곡</option>
+								<option>낚시</option>
+								<option>놀이시설</option>
+								<option>수영장</option>
+								<option>산책로</option>
+								<option>수상레저</option>
+								<option>해당없음</option>
+							</select>
+						</div></li>
+				</ul>
+			</div>
+
+			<div class="row mx-auto mt-1 mb-5 ps-3">
+				<ul class="list-unstyled">
+					<li class="mt-2"><strong>키워드 검색</strong></li>
+				</ul>
+				<div class="flex justify-content-center col-6">
+					<input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요.">
+				</div>
+				<div class="flex justify-content-center col-3">
+					<button id="search-btn" class="btn btn-dark" type="button">캠핑장 검색</button>
+				</div>
+			</div>
+		</div>
+
+
+		<p style="margin-top: -12px">
+			<em class="link"> <a href="javascript:void(0);"
+				onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+			</a>
+			</em>
+		</p>
+		<div id="map" style="width: 100%; height: 600px;"></div>
+
+		<!--/////////////////////////////////////////////////////////////////////  -->
+
+		
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902b7b97c1c375075b85e37ed1d667bf&libraries=services"></script>
+		<script>
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			    mapOption = {
-			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			        level: 3 // 지도의 확대 레벨
-			    };  
-			
+			mapOption = {
+				center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				level : 3
+			// 지도의 확대 레벨
+			};
+
 			// 지도를 생성합니다    
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
+			var map = new kakao.maps.Map(mapContainer, mapOption);
+
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new kakao.maps.services.Geocoder();
-			
+		
 			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-			
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			        // 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-			
-			        // 인포윈도우로 장소에 대한 설명을 표시합니다
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-			        });
-			        infowindow.open(map, marker);
-			
-			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			        map.setCenter(coords);
-			    } 
-			});    
-			</script>
+			geocoder.addressSearch(
+							'제주특별자치도 제주시 첨단로 242',
+							function(result, status) {
+
+								// 정상적으로 검색이 완료됐으면 
+								if (status === kakao.maps.services.Status.OK) {
+
+									var coords = new kakao.maps.LatLng(
+											result[0].y, result[0].x);
+
+									// 결과값으로 받은 위치를 마커로 표시합니다
+									var marker = new kakao.maps.Marker({
+										map : map,
+										position : coords
+									});
+									
+									
+
+									// 인포윈도우로 장소에 대한 설명을 표시합니다
+									var infowindow = new kakao.maps.InfoWindow(
+											{
+												content : '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+											});
+									infowindow.open(map, marker);
+
+									// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+									map.setCenter(coords);
+								}
+							});
+		</script>
 	</div>
 </body>
 </html>
