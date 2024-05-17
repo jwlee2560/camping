@@ -79,7 +79,7 @@ dependencies {
 	
 	// REST Test springdoc(swagger)
 	// https://springdoc.org/
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 	
 	// AJAX axios
 	implementation 'org.webjars.npm:axios:1.5.0'	
@@ -105,9 +105,45 @@ dependencies {
 	// API referece doc : https://javadoc.io/doc/org.imgscalr/imgscalr-lib/latest/index.html
 	implementation 'org.imgscalr:imgscalr-lib:4.2'	
 	
+	// https://mvnrepository.com/artifact/org.apache.httpcomponents.core5/httpcore5
+	implementation 'org.apache.httpcomponents.core5:httpcore5:5.2.4'
+	
+	// https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5
+	implementation 'org.apache.httpcomponents.client5:httpclient5:5.3.1'
+	
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	implementation 'commons-codec:commons-codec:1.17.0'
+	
 	// Open CSV
 	implementation 'com.opencsv:opencsv:5.9'
+	
+	// Rest Client : HttpComponents
+	implementation 'org.apache.httpcomponents.core5:httpcore5:5.2.4'
+
+	// Rest Client : HttpClient
+	implementation 'org.apache.httpcomponents.client5:httpclient5:5.3.1'
+
+	// UTF-8 처리 메서드
+	implementation 'commons-codec:commons-codec:1.17.0'
+
+	// https://springdoc.org/
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+	
+	// crawling
+	implementation 'org.jsoup:jsoup:1.11.3'
+	
+	// 한글 형태소 분석
+	// https://docs.komoran.kr/
+	// https://mvnrepository.com/artifact/com.github.shin285/KOMORAN
+	implementation 'com.github.shin285:KOMORAN:3.3.4'
+
+	// 한글 형태소 분석-2
+	// koalanlp
+	// http://koalanlp.github.io/koalanlp
+	implementation 'kr.bydelta:koalanlp-okt:2.1.4'
+	
 }
+
 
 tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'

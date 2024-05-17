@@ -54,8 +54,8 @@ public class SecurityConfig {
     	// /v2/api-docs, /swagger-resources/**, /swagger/**, swagger-ui.html
     	// axios 항목 예외 추가
     	return (web) -> web.ignoring().requestMatchers("/img/**", "/css/**", "/webjars/**", 
-    				"/images/**", "/js/**", "/v2/api-docs", "/swagger-resources/**", "/swagger/**", "/swagger-ui.html",
-    				"/axios/**", "/bootstrap-icons/**", "/bootstrap/**",
+    				"/images/**", "/js/**", "/v2/api-docs","/axios/**", "/swagger-resources/**", "/swagger/**", "/swagger-ui.html",
+    				"/axios/**", "/bootstrap-icons/**", "/bootstrap/**", "/webjars/jquery/**",
     				"/summernote/**");    	
     }
 
@@ -78,9 +78,9 @@ public class SecurityConfig {
 										// axios 추가
 						                // security 적용 예외 URL 등록와의 중복 부분 제외 => "/"만 적용
 						                // .requestMatchers("/", "/css/**", "/webjars/**", "/images/**", "/js/**", "/axios/**", "/bootstrap-icons/**").permitAll()
-						                .requestMatchers("/").permitAll() 
-						                .requestMatchers("/swagger-resources/**", "/swagger/**", "/swagger-ui.html").permitAll()
-						                .requestMatchers("/member/hasFld/**").permitAll()
+						                .requestMatchers("/","/webjars/jquery/**","/map").permitAll() 
+						                .requestMatchers("/swagger-resources/**", "/swagger/**", "/swagger-ui/index.html").permitAll()
+						                .requestMatchers("/mapRest","/member/hasFld/**").permitAll()
 						                .requestMatchers("/member/view.do", "/member/hasFldForUpdate/**").authenticated()
 						                .requestMatchers("/member/update.do", "/member/updateProc.do").authenticated()
 						                .requestMatchers("/member/updateSess.do", "/member/updateSessProc.do").authenticated()

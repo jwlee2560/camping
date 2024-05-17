@@ -22,6 +22,11 @@ public class HomeController {
 		// return "redirect:/member/join.do";
 	} //
 	
+	@GetMapping("/map")
+	public String map() {
+		return "map";
+	}
+	
 	@GetMapping("/about.do")
 	public String about() {
 		
@@ -30,7 +35,7 @@ public class HomeController {
 		return "about";
 	}
 	
-	@GetMapping("/content1.do")
+	@GetMapping("/notice.do")
 	public String content1() {
 		
 		log.info("공지사항");
@@ -89,7 +94,6 @@ public class HomeController {
 		model.addAttribute("movePage", "/welcome");
 	
 		return "/error/error";
-	}
-	
+	}	
 
 }
