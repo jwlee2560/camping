@@ -78,7 +78,7 @@ public class SecurityConfig {
 										// axios 추가
 						                // security 적용 예외 URL 등록와의 중복 부분 제외 => "/"만 적용
 						                // .requestMatchers("/", "/css/**", "/webjars/**", "/images/**", "/js/**", "/axios/**", "/bootstrap-icons/**").permitAll()
-						                .requestMatchers("/","/webjars/jquery/**","/map").permitAll() 
+						                .requestMatchers("/","/webjars/jquery/**","/map","/img/**","/mapSearch").permitAll() 
 						                .requestMatchers("/swagger-resources/**", "/swagger/**", "/swagger-ui/index.html").permitAll()
 						                .requestMatchers("/mapRest","/member/hasFld/**").permitAll()
 						                .requestMatchers("/member/view.do", "/member/hasFldForUpdate/**").authenticated()
