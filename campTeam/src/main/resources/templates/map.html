@@ -4,12 +4,24 @@
 	<meta charset="utf-8"/>
 	<title>Kakao 지도 시작하기</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902b7b97c1c375075b85e37ed1d667bf"></script>
+
 	<script>
 	$(function() {
 
+		var container = document.getElementById('map');
+		var options = {
+			// 기본값 : 신림역
+			center: new kakao.maps.LatLng(37.484269, 126.929676),
+			level: 1
+		};
+
+		var map = new kakao.maps.Map(container, options);
+
 		$("#searchBtn").click(function() {
 
-			alert("클릭");
+			// alert("클릭");
 
 			$.ajax({
 				method : 'get',
@@ -47,6 +59,9 @@
 					// 다중 마커 표시
 					var positions = [];
 
+					// 클릭한 마커를 담을 변수
+				    let selectedMarker = null;
+
 					// 마커 이미지
 					var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
@@ -65,7 +80,7 @@
 
 						positions[i] = camp;
 
-					    // 마커 생성
+						 // 마커 생성
 					    var marker = new kakao.maps.Marker({
 					        map: map, // 마커를 표시할 지도
 					        position: positions[i].latlng, // 마커를 표시할 위치
@@ -73,7 +88,33 @@
 					        image : markerImage // 마커 이미지
 					    });
 
+
+						////////////////////////////////////////////////////////////////////////////////////
+
+						(function(marker, title, i) { // 즉시 실행 함수 (중요 !)
+						// 여기서 일반적인 함수 및 구문(루틴) 사용시 인자 전달 안되는 오류 있음
+
+							// 마커에 마우스오버 이벤트를 등록합니다
+							kakao.maps.event.addListener(marker, 'click', function() {
+
+							    console.log("title : ", title);
+	 						  	console.log("마커 : ", marker);
+	 						  	console.log("마커 클릭 : ", marker.getTitle());
+
+	 						  	// 해당 캠프장 상세 사항 가져오기
+	 						  	console.log("캠프장 지번 주소 : ", response[i].roadAddress);
+
+								let result = document.getElementById("result");
+								result.innerHTML = response[i].roadAddress;
+
+							});
+
+						})(marker, camp.title, i) // 즉시 실행 함수 실인자
+
+						/////////////////////////////////////////////////////////////////////////////
+
 					} // for
+
 				} // success (http status 200)
 
 			}) // done
@@ -93,22 +134,13 @@
 
 	<div id="map" style="width:1300px; height:500px;"></div>
 
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902b7b97c1c375075b85e37ed1d667bf&libraries=services"></script>
-	<script>
-		var container = document.getElementById('map');
-		var options = {
-			// 기본값 : 신림역
-			center: new kakao.maps.LatLng(37.484269, 126.929676),
-			level: 1
-		};
+	<div id="result" style="width:1300px; height:100px; background-color:yellow">
 
-		var map = new kakao.maps.Map(container, options);
-	</script>
+	</div>
 
 	<div style="margin-top:20px;">
 
 		지역 : <select id="region" name="region">
-		      	<option>서울/경기/인천 전체</option>
 		      	<option>경기 북부</option>
 		      	<option>경기 남부</option>
 			  </select>
@@ -116,11 +148,14 @@
 			  <br><br>
 
 		테마 : <select id="thema" name="thema">
-				<option>바다</option>
-				<option>강</option>
-				<option>낚시</option>
-				<option>산책</option>
-				<option>수상레저</option>
+				<option>체험시설</option>
+								<option>계곡</option>
+								<option>낚시</option>
+								<option>놀이시설</option>
+								<option>수영장</option>
+								<option>산책로</option>
+								<option>수상레저</option>
+								<option>해당없음</option>
 			  </select>
 
   			  <br><br>
