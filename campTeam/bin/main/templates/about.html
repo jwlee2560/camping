@@ -113,8 +113,30 @@
 					  	console.log("캠프장 지번 주소 : ", camps[i].roadAddress);
 
 						let result = document.getElementById("result");
-						let campResult = `<span>${camps[i].campName}</span>,
-										<span>${camps[i].roadAddress}</span>,`;
+						let campResult = `<table class="table">
+										  <thead>
+										    <tr>
+										      <th scope="col">번호</th>
+										      <th scope="col">캠핑장명</th>
+										      <th scope="col">전화번호</th>
+										      <th scope="col">주소</th>
+										      <th scope="col">평일운영</th>
+										      <th scope="col">주말운영</th>
+										      <th scope="col">취사시설</th>
+										    </tr>
+										  </thead>
+										  <tbody>
+											<tr>
+										      <th scope="row">${i}</th>
+										      <td>${camps[i].campName}</td>
+										      <td>${camps[i].roadAddress}</td>
+										      <td>${camps[i].roadAddress}</td>
+										      <td>${camps[i].weekdayOpStatus}</td>
+										      <td>${camps[i].weekendOpStatus}</td>
+										      <td>${camps[i].glamCookware}</td>
+										    </tr>
+										  </tbody>
+										</table>`;
 						// 캠핑장 정보 출력
 						result.innerHTML = campResult;
 
@@ -218,8 +240,31 @@
 
 								//////////여기서 추가해서 결과값 
 								let result = document.getElementById("result");
-								let campResult = `<span>${response[i].campName}</span>,
-												<span>${response[i].roadAddress}</span>,`;
+								
+								let campResult = `<table class="table">
+												  <thead>
+												    <tr>
+												      <th scope="col">번호</th>
+												      <th scope="col">캠핑장명</th>
+												      <th scope="col">전화번호</th>
+												      <th scope="col">주소</th>
+												      <th scope="col">평일운영</th>
+												      <th scope="col">주말운영</th>
+												      <th scope="col">취사시설</th>
+												    </tr>
+												  </thead>
+												  <tbody>
+													<tr>
+												      <th scope="row">${i}</th>
+												      <td>${response[i].campName}</td>
+												      <td>${response[i].phone}</td>
+												      <td>${response[i].roadAddress}</td>
+												      <td>${response[i].weekdayOpStatus}</td>
+												      <td>${response[i].weekendOpStatus}</td>
+												      <td>${response[i].glamCookware}</td>
+												    </tr>
+												  </tbody>
+												</table>`;
 								// 캠핑장 정보 출력
 								result.innerHTML = campResult;
 
@@ -286,7 +331,7 @@
 				</ul>
 			</div>
 
-			<div class="row mx-auto mt-1 mb-2 ps-3">
+			<div class="row mx-auto mt-1 mb-3 ps-3">
 				<ul class="list-unstyled">
 					<li class="mt-2"><strong>키워드 검색</strong></li>
 				</ul>
@@ -300,7 +345,7 @@
 		</div>
 
 		<!-- 캠핑장 정보  -->
-		<div id="result" class="mx-auto my-4" style="width:1425px; height:100px; background-color:yellow"></div>
+		<div id="result" class="mx-auto my-4" style="width:1425px; height:100px; background-color:#fff"></div>
 		
 		<!-- 캠핑장 지도 정보  -->
 		<div id="map" style="width: 100%; height: 600px;"></div>
