@@ -118,17 +118,17 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link" th:classappend="${menu} == 'about'? 'active'" aria-current="page" href="#" th:href="@{/about.do}">캠핑소식
+          <a class="nav-link" th:classappend="${menu} == 'about'? 'active'" aria-current="page" href="#" th:href="@{/about.do}">캠핑찾기
           <span class="visually-hidden"	th:if="${menu} == 'about'"></span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:classappend="${menu} == 'notice'? 'active'" aria-current="page" href="#" th:href="@{/notice/list.do}">공지사항
           <span class="visually-hidden"	th:if="${menu} == 'notice'"></span></a>
         </li>
-        <li class="nav-item">
+    <!--     <li class="nav-item">
           <a class="nav-link" th:classappend="${menu} == 'search'? 'active'" aria-current="page" href="#" th:href="@{/searchlist.do}">추천캠핑찾기
           <span class="visually-hidden"	th:if="${menu} == 'search'"></span></a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a id="boardButton" class="nav-link" th:classappend="${menu} == 'board'? 'active'" aria-current="page" href="#" th:href="@{/board/list.do}">게시판
           <span class="visually-hidden"	th:if="${menu} == 'board'"></span></a>

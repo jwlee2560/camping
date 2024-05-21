@@ -1,139 +1,111 @@
 /* Google Web Font */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Gothic&display=swap');
 
-.Slidesbackground {
-    margin: 0;
-    padding: 0;
-
-}
-.slideshow-image{
-    width: 100%;
-    height: 800px;
-    overflow: hidden;
-}
-.mySlides {
-    width: 100%;
-    height: 800px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.slideshow-container {
-    display: flex;
-    justify-content: center;
+.section_05 {
     position: relative;
-    margin: auto;
-}
-
-.fade {
-    animation-name: fade;
-    animation-duration: 10s;
-}
-
-@keyframes fade {
-    from {
-        opacity: .77
-    }
-    to {
-        opacity: 1
-    }
-}
-.m_title {
     width: 100%;
-    position: absolute;
-    z-index: 3;
-    text-align: center;
-    color: #fff;
-    top: 35%;
-    text-shadow: 2px 2px 3px rgb(0, 0, 0);
-}
-.m_title .m_title_01 {
-    font-size: 40px;
-    font-family: BM_dh;
-}
-.m_title .m_title_01 > span {
-    font-size: 57px;
-    font-family: BM_dh;
-}
-.m_title .s_title01 {
-    font-size: 28px;
-    clear: both;
-    margin: 30px 0 0 0;
-    letter-spacing: -2px;
+    overflow: hidden;
+    height: auto;
+    min-height: 562px;
+    padding: 57px 0;
 }
 
-.search_box .search_box_form .form1_2 .tt {
+.layout, .layout2 {
     display: block;
-    float: left;
-    color: #fff;
-    width: 86px;
-    text-align: left;
-    font-size: 16px;
-    line-height: 44px;
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
 }
 
-.search_box .search_box_form .form1_2 select.select_01 {
-    font-size: 13px;
-    width: 170px;
-    padding: 0 0 0 19px;
-    height: 44px;
-    line-height: 44px;
-    border-radius: 5px;
-    border: 0;
-    box-sizing: border-box;
-}
-
-form.search_box_form {
-	background-color: rgba(255, 187, 0, 0.8);
-	width: 700px;
-	height: 250px;
-	position: absolute;
-	top: 75%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	color: #fff;
-	
-}
-
- .btnSearch_black01 {
-    width: 95px;
-    height: 44px;
-    line-height: 44px;
+.section_05 .title_w {
+    width: 100%;
+    position: relative;
     text-align: center;
-    color: #fff;
-    font-size: 15px;
-    background: #333;
-    border-radius: 5px;
-    float: right;
-}
-/* MARKETING CONTENT
--------------------------------------------------- */
-
-/* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-/* rtl:begin:ignore */
-.marketing .col-lg-4 p {
-  margin-right: .75rem;
-  margin-left: .75rem;
-}
-/* rtl:end:ignore */
-
-
-/* Featurettes
-------------------------- */
-
-.featurette-divider {
-  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+    margin-top: 50px;
 }
 
-/* Thin out the marketing headings */
-/* rtl:begin:remove */
-.featurette-heading {
-  letter-spacing: -.05rem;
+.section_05 .title_w .tt01 {
+    display: block;
+    font-size: 60px;
+    color: #000;
+    vertical-align: middle;
+    color: #000;
+    font-family: "Black Han Sans", sans-serif;
 }
 
-/* rtl:end:remove */
+.thema_bg_w2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    text-align: center;
+}
+
+.card-group {
+	width: 50%;
+	height: 450px;
+}
+
+.post-slider{
+  width:70%;
+  margin:0px auto;
+  position:relative;
+}
+
+.post-wrapper {
+	width:350px;
+	height:500px;
+	background-color:skyblue;
+	text-align:center;
+	}
+	
+.post-slider .post-wrapper{
+
+  width:84%;
+  height:350px;
+  margin:0px auto;
+  overflow: hidden;
+  padding:10px 0px 10px 0px;
+}
+
+.post-slider .post-wrapper .post{
+  width:300px;
+  height:300px;
+  margin:0px 10px;
+  display:inline-block;
+  background:white;
+  border-radius: 5px;
+}
+
+.post-slider .post-wrapper .post .post-info{
+  font-size:15px;
+  height:30%;
+  padding-left:10px;
+}
+
+.post-slider .post-wrapper .post .slider-image{
+  width:100%;
+  height:175px;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  object-fit: cover;
+}
+
+/* 화살표 색상 변경*/
+.slick-prev:before, .slick-next:before{
+  color: black !important;
+  opacity: 1 ; 
+}
+/* 화살표 위치 변경 */
+.slick-prev{
+  left: 20px !important ;
+  z-index: 9 ;
+}
+.slick-next{
+  right: 20px !important ;
+  z-index: 9 ;  
+}

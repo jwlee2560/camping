@@ -9,10 +9,20 @@
 <meta charset="UTF-8">
 <title>home</title>
 
+<!--slick slider 필요 태그 st-->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css">
+<!-- jQuery CDN -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!-- slick Carousel CDN -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+<!--slick slider 필요 태그 en-->
+
 	<link th:href="@{'/css/home.css'}" rel="stylesheet" />
-	<!-- <script th:src="@{'/js/home.js'}"></script> -->
 	
 </head>
+
 <body>
 
 	<div layout:fragment="content" class="main_sect_pnl"> 
@@ -67,7 +77,7 @@
 								<input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요.">
 							</div>
 							<div class="flex justify-content-center col-3">
-								<button id="search-btn" class="btn btn-dark" type="submit">캠핑장 검색</button>
+								<button id="search-btn" class="btn btn-secondary" type="submit">캠핑장 검색</button>
 							</div>
 						</div>
 					
@@ -78,46 +88,78 @@
                    
       </div>
             
-		<script th:src="@{'/js/home.js'}"></script>
+
+		
+		<div class="section_05">
+			<div class="layout">
+				<div class="title_w">
+				<h2 class="tt01">추천 검색 결과</h2>
+				</div>
+			</div>
 		
 		
-		
-	<div class="container marketing mt-5">		
-	<div class="row">
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h2 class="fw-normal">Heading</h2>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h2 class="fw-normal">Heading</h2>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h2 class="fw-normal">Heading</h2>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h2 class="fw-normal">Heading</h2>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h2 class="fw-normal">Heading</h2>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h2 class="fw-normal">Heading</h2>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
-    </div>
-		
+		<div class="thema_bg_w2">
+			<div class="thema_bg_01">
+				<img src="img/thema_bg_01.jpg" alt="추천 배경 이미지">
+			</div>
+		</div>
+	
+
+	
+<!-- 테마 슬라이드 ver1-->
+
+<div class="d-flex justify-content-center">
+	<div class="post-slider">	
+		<div class="post-wrapper">
+		   <div class="post">content1<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
+			   <div class="post-info">
+			   <h4><a href="#"> link </a></h4>
+			   <i class="far fa-user" style="height:10%;">detail description</i>
+			   </div>
+		   </div>
+		   <div class="post">content2<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
+			   <div class="post-info">
+			   <h4><a href="#"> link  </a></h4>
+			   <i class="far fa-user" style="height:10%;">detail description</i>
+			   </div>
+		   </div>
+		   <div class="post">content3<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
+			   <div class="post-info">
+			   <h4><a href="#"> link  </a></h4>
+			   <i class="far fa-user" style="height:10%;">detail description</i>
+			   </div>
+		   </div>
+		   <div class="post">content4<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
+			   <div class="post-info">
+			   <h4><a href="#"> link  </a></h4>
+			   <i class="far fa-user" style="height:10%;">detail description</i>
+			   </div>
+		   </div>
+		   <div class="post">content5<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
+			   <div class="post-info">
+			   <h4><a href="#"> link  </a></h4>
+			   <i class="far fa-user" style="height:10%;">detail description</i>
+			   </div>
+		   </div>
+		   <div class="post">content6<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
+			   <div class="post-info">
+			   <h4><a href="#"> link  </a></h4>
+			   <i class="far fa-user" style="height:10%;">detail description</i>
+			   </div>
+		   </div>
+		   <div class="post">content7<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
+			   <div class="post-info">
+			   <h4><a href="#"> link  </a></h4>
+			   <i class="far fa-user" style="height:10%;">detail description</i>
+			   </div>
+		   </div>
+		</div>
+	</div>
 </div>
+      	<script th:src="@{'/js/home.js'}"></script>
+      <!--post slider-->
+    </div>
+  </div>
 		
 </body>
 </html>
