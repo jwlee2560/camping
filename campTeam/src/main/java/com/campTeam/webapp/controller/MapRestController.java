@@ -74,8 +74,12 @@ public class MapRestController {
 		ResponseEntity<Object> response = null;
 
 		try {
-
-			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
+			//10개만 추출
+//			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
+			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
+					  .stream()
+					  .limit(10)
+					  .toList();
 // 			log.info("campList size : {}", campList.size());
 
 			if (campList.isEmpty() == true) {

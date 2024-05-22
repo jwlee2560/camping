@@ -204,5 +204,19 @@ public class CampEntity {
 
 	@Column(name="reg_date")
 	private String regDate;
+	
+	@Column(name="image")
+	private String image;
+	
+	/** 네이버 별점 */
+	@Column(name="avg_rating")
+	private String avgRating;
 
+	/** 네이버 리뷰(긍정지수) */
+	@Column(name="review_positive")
+	private String reviewPositive;
+
+	/** 네이버 리뷰(부정지수) */
+	@Column(name="review_negative")
+	private String reviewNegative;
 }
