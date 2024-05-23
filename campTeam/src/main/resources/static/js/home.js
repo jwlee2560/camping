@@ -17,7 +17,7 @@
         setTimeout(showSlides, 10000); // 10초마다 이미지가 체인지됩니다
     }*/
 
-$(document).ready(function(){
+/*$(document).ready(function(){
       $('.post-wrapper').slick({
         slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
         slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
@@ -30,4 +30,4 @@ $(document).ready(function(){
         adaptiveHeight: true, // 슬라이더 높이를 현재 슬라이드에 맞춤
         draggable:true //드래그 가능여부
       });
-});
+});*/
