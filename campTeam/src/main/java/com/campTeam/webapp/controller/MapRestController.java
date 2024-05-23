@@ -76,7 +76,8 @@ public class MapRestController {
 		try {
 			//10개만 추출
 //			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
-			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
+			//campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
+			campList = campDAO.getTotalCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
 					  .stream()
 					  .limit(10)
 					  .toList();

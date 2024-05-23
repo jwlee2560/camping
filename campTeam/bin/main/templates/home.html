@@ -23,7 +23,187 @@
 
 <link th:href="@{'/css/home.css'}" rel="stylesheet" />
 
+<!-- 	<script th:src="@{'/js/home.js'}"></script> -->
+<script>
+$(function() {
 
+ 	  $('.post-wrapper').slick({
+	        slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
+	        slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
+			autoplay: true,
+			autoplaySpeed: 1000,
+	        arrows: true, //넘기기 버튼 화살표 여부
+	        dots:true, //네비게이션 버튼 dot유형
+	     	// asNavFor: '.terms-nav', //함께 움직이는 슬라이드 메뉴영역  --- 주의) 이 부분(term-nav) 없기 때문에 오류 발생 (삭제)
+	        infinite: true, //무한반복 옵션  -- 무한 루프 활성화
+	        adaptiveHeight: true, // 슬라이더 높이를 현재 슬라이드에 맞춤
+	        draggable:false //드래그 가능여부
+        });
+
+	    // 도입부 슬라이드(가평 10개)
+		$.ajax({
+			method : 'get',
+			url : '/campTeam/mapRest',
+			data : {
+				region :"경기 북부",
+				thema :"해당없음",
+				searchWord :"가평"
+			}
+		})
+		.done(function(response, status, xhr) {
+
+			if (status == "nocontent") {
+
+				alert("해당 정보가 없습니다.");
+
+			} else if (status == 'success') {
+
+				console.log("response : ", response);
+
+				let camps="";
+
+				for (var i=0; i<response.length; i++) {
+
+					console.log("캠프장-1 : ", response[i]);
+
+					 camps += `
+							<div class="post">
+					 			<img src="${response[i].image==null ? '/campTeam/img/no_image.png':response[i].image}" class="slider-image">
+							   	<div class="post-info">
+							   		<h4><a href="#">${response[i].campName}</a></h4>
+							   		<i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
+							   		${response[i].facilDetail.substring(0,30)}...</i>
+							    </div>
+						   </div>`;
+				} // for
+
+				$(".post-wrapper").html(camps);
+
+				$('.post-wrapper').slick("unslick").slick({
+				        slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
+				        slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
+						autoplay: true,
+						autoplaySpeed: 1000,
+				        arrows: true, //넘기기 버튼 화살표 여부
+				        dots:true, //네비게이션 버튼 dot유형
+				        // asNavFor: '.terms-nav', //함께 움직이는 슬라이드 메뉴영역  --- 주의) 이 부분(term-nav) 없기 때문에 오류 발생 (삭제)
+				        infinite: true, //무한반복 옵션  -- 무한 루프 활성화
+				        adaptiveHeight: true, // 슬라이더 높이를 현재 슬라이드에 맞춤
+				        draggable:false //드래그 가능여부
+			        });
+
+
+			} // success (http status 200)
+
+		}) // done
+		.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
+
+			// alert(data.status);
+			alert("서버에 문제가 발생하였습니다.");
+			console.log("data : ", data);
+			console.log("상태 코드 : ", data.status);
+			console.log("xhr : ", xhr);
+		}) // ajax
+
+
+		let region = document.getElementById("region");
+		let thema = document.getElementById("thema");
+		let searchWord = document.getElementById("searchWord");
+
+		console.log("지역:",region.value)
+		console.log("테마:",thema.value)
+		console.log("검색어:",searchWord.value)
+
+		///////////////////////////////////////////////////////////////
+
+		$("#search-btn").click(function(e) {
+
+			alert("전송")
+
+			$.ajax({
+				method : 'get',
+				url : '/campTeam/mapRest',
+				data : {
+					region : $('#region').val(),
+					thema : $("#thema").val(),
+					searchWord : $('#searchWord').val()
+				}
+			})
+			.done(function(response, status, xhr) {
+
+				alert("성공");
+
+				if (status == "nocontent") {
+
+					alert("해당 정보가 없습니다.");
+
+				} else if (status == 'success') {
+
+					console.log("response : ", response);
+					console.log("response.length : ", response.length);
+
+					var camps="";
+
+					// 슬라이드 초기화 (중요!)
+					// 기존 슬라이드들 제거 : 패치
+				    $('.post-wrapper').slick('slickRemove', null, null, true);
+
+					// $('.post-wrapper').slick("unslick").slick();
+
+					for (var i=0; i<response.length; i++) {
+
+						console.log("캠프장-1 : ", response[i]);
+						console.log("캠프장-1 위도 : ", response[i].latitude);
+						console.log("캠프장-1 경도 : ", response[i].longitude);
+
+						 camps += `
+								<div class="post" style="width:300px; overflow:hidden;">
+						 		   <img src="${response[i].image==null ? '/campTeam/img/no_image.png':response[i].image}" class="slider-image">
+								   <div class="post-info">
+									   <h4><a href="#">${response[i].campName}</a></h4>
+									   <i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
+									   		${response[i].facilDetail.substring(0,30)}...
+								   	   </i>
+								   </div>
+							   </div>`;
+ 					} // for
+
+					$(".post-wrapper").html(camps);
+
+					$('.post-wrapper').slick("unslick");
+
+					$('.post-wrapper').slick({
+						row: 1, // 이미지를 한줄에 표현
+				        slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
+				        slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
+						autoplay: true,
+						autoplaySpeed: 500,
+				        arrows: true, //넘기기 버튼 화살표 여부
+				        dots:true, //네비게이션 버튼 dot유형
+				     	// asNavFor: '.terms-nav', //함께 움직이는 슬라이드 메뉴영역  --- 주의) 이 부분(term-nav) 없기 때문에 오류 발생 (삭제)
+				        infinite: true, //무한반복 옵션  -- 무한 루프 활성화
+				        adaptiveHeight: true, // 슬라이더 높이를 현재 슬라이드에 맞춤
+				        draggable:false //드래그 가능여부
+			        });
+
+				} // success (http status 200)
+
+			}) // done
+			.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
+
+				// alert(data.status);
+				alert("서버에 문제가 발생하였습니다.");
+				console.log("data : ", data);
+				console.log("상태 코드 : ", data.status);
+				console.log("xhr : ", xhr);
+			})// ajax
+
+		////////////////////////////////////////////////////////
+
+	});//$("#search-btn").click(function(e) {
+
+});
+</script>
 </head>
 
 <body>
@@ -93,10 +273,7 @@
 
 			</div>
 
-
 		</div>
-
-
 
 		<div class="section_05">
 			<div class="layout">
@@ -105,14 +282,13 @@
 				</div>
 			</div>
 
-
 			<div class="thema_bg_w2">
 				<div class="thema_bg_01">
 					<img src="img/thema_bg_01.jpg" alt="추천 배경 이미지">
 				</div>
 			</div>
 
-
+			<!-- //////////////////////////////////////////////////////////////// -->
 
 			<!-- 테마 슬라이드 ver1-->
 
@@ -122,164 +298,10 @@
 				</div>
 			</div>
 
-		<!-- 	<script th:src="@{'/js/home.js'}"></script> -->
-			<script>
-			$(function() {
-
-				$('.post-wrapper').slick({
-			        slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
-			        slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
-					autoplay: true,
-					autoplaySpeed: 500,
-			        arrows: true, //넘기기 버튼 화살표 여부
-			        dots:true, //네비게이션 버튼 dot유형
-			        asNavFor: '.terms-nav', //함께 움직이는 슬라이드 메뉴영역
-			        infinite: false, //무한반복 옵션
-			        adaptiveHeight: true, // 슬라이더 높이를 현재 슬라이드에 맞춤
-			        draggable:false //드래그 가능여부
-			      });
-
-					// 도입부 슬라이드(가평 10개)
-						$.ajax({
-							method : 'get',
-							url : '/campTeam/mapRest',
-							data : {
-								region :"경기 북부",
-								thema :"해당없음",
-								searchWord :"가평"
-							}
-						})
-						.done(function(response, status, xhr) {
-
-							if (status == "nocontent") {
-
-								alert("해당 정보가 없습니다.");
-
-							} else if (status == 'success') {
-
-								console.log("response : ", response);
-
-								let camps="";
-
-								for (var i=0; i<response.length; i++) {
-
-									console.log("캠프장-1 : ", response[i]);
-
-									 camps += `
-											<div class="post"><img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
-											   <div class="post-info">
-											   <h4><a href="#">${response[i].campName}</a></h4>
-											   <i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
-											   ${response[i].facilDetail.substring(0,30)}...</i>
-											   </div>
-										   </div>`;
-								} // for
-
-								$(".post-wrapper").html(camps);
-
-								$('.post-wrapper').slick("unslick").slick();
-
-							} // success (http status 200)
-
-						}) // done
-						.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
-
-							// alert(data.status);
-							alert("서버에 문제가 발생하였습니다.");
-							console.log("data : ", data);
-							console.log("상태 코드 : ", data.status);
-							console.log("xhr : ", xhr);
-						}) // ajax
-
-
-					// https://developers.kakaomobility.com/docs/navi-api/directions/
-					//
-					// curl -v -X GET "https://apis-navi.kakaomobility.com/v1/directions?origin=127.11015314141542,37.39472714688412&destination=127.10824367964793,37.401937080111644&waypoints=&priority=RECOMMEND&car_fuel=GASOLINE
-					//			&car_hipass=false&alternatives=false&road_details=false"
-					//	 -H "Authorization: KakaoAK KAKAO REST API KEY"
-					console.log("테스트");
-
-					let region = document.getElementById("region");
-					let thema = document.getElementById("thema");
-					let searchWord = document.getElementById("searchWord");
-
-					console.log("지역:",region.value)
-					console.log("테마:",thema.value)
-					console.log("검색어:",searchWord.value)
-
-					///////////////////////////////////////////////////////////////
-
-					$("#search-btn").click(function(e) {
-
-						alert("전송")
-
-						$.ajax({
-							method : 'get',
-							url : '/campTeam/mapRest',
-							data : {
-								region : $('#region').val(),
-								thema : $("#thema").val(),
-								searchWord : $('#searchWord').val()
-							}
-						})
-						.done(function(response, status, xhr) {
-
-							alert("성공");
-
-							if (status == "nocontent") {
-
-								alert("해당 정보가 없습니다.");
-
-							} else if (status == 'success') {
-
-								console.log("response : ", response);
-								console.log("response.length : ", response.length);
-
-								var camps="";
-
-								// 슬라이드 초기화 (중요!)
-								// 기존 슬라이드들 제거 : 패치
-							    $('.post-wrapper').slick('slickRemove', null, null, true);
-
-								// $('.post-wrapper').slick("unslick").slick();
-
-								for (var i=0; i<response.length; i++) {
-
-									console.log("캠프장-1 : ", response[i]);
-									console.log("캠프장-1 위도 : ", response[i].latitude);
-									console.log("캠프장-1 경도 : ", response[i].longitude);
-
-									 camps += `
-											<div class="post"><img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
-											   <div class="post-info">
-											   <h4><a href="#">${response[i].campName}</a></h4>
-											   <i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
-											   ${response[i].facilDetail.substring(0,30)}...</i>
-											   </div>
-										   </div>`;
-			 					} // for
-
-								$(".post-wrapper").html(camps);
-								$('.post-wrapper').slick("unslick").slick();
-
-							} // success (http status 200)
-
-						}) // done
-						.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
-
-							// alert(data.status);
-							alert("서버에 문제가 발생하였습니다.");
-							console.log("data : ", data);
-							console.log("상태 코드 : ", data.status);
-							console.log("xhr : ", xhr);
-						})// ajax
-
-					////////////////////////////////////////////////////////
-				});//$("#search-btn").click(function(e) {
-
-			});
-			</script>
 			<!--post slider-->
+
+			<!-- //////////////////////////////////////////////////////////////// -->
+
 		</div>
 	</div>
 

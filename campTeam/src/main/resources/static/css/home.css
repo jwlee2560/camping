@@ -57,11 +57,11 @@
 }
 
 .post-wrapper {
-	width:350px;
-	height:500px;
-	background-color:skyblue;
-	text-align:center;
-	}
+   width:350px;
+   height:500px;
+   background-color:rgba(255, 187, 100, 0.50);
+   text-align:center;
+   }
 	
 .post-slider .post-wrapper{
 
@@ -97,7 +97,7 @@
 
 /* 화살표 색상 변경*/
 .slick-prev:before, .slick-next:before{
-  color: black !important;
+  color: #fff !important;
   opacity: 1 ; 
 }
 /* 화살표 위치 변경 */
