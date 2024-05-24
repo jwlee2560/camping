@@ -5,7 +5,7 @@
 // 댓글 목록 읽어오기
 function getAllReplies(originalNoticeId, noticeWriter) {
 	
-	axios.get(`/campingProject/notice/getRepliesAll.do?noticeNum=${originalNoticeId}`) 
+	axios.get(`/campTeam/notice/getRepliesAll.do?noticeNum=${originalNoticeId}`) 
 		 .then(function(response) {
 			 
 			// alert("전체 댓글 가져오기");
@@ -188,7 +188,7 @@ function writeReply(originalNoticeId, noticeWriter) {
  			} else { 
 			 
  				// 전송			  
- 				axios.post('/campingProject/notice/replyWrite.do', 
+ 				axios.post('/campTeam/notice/replyWrite.do', 
  					{
 						noticeNum : originalNoticeId,
 						noticeContent : replyWriteForm.value,
@@ -462,7 +462,7 @@ function updateReply(originalNoticeId, replyNoticeId, noticeWriter) {
 			
 				// 전송	
 				// 주의) 여기서 noticeNum 댓글 자체의 아이디입니다.		  
- 				axios.post('/campingProject/notice/replyUpdate.do', 
+ 				axios.post('/campTeam/notice/replyUpdate.do', 
  					{
 					    noticeNum : replyNoticeId,
 						noticeContent : replyUpdateForm.value,
@@ -718,7 +718,7 @@ function deleteReply(originalNoticeId, replyNoticeId, noticeWriter) {
 				
 				// 삭제를 위한 AJAX 전송
 				// 삭제할 댓글 아이디와 댓글 부모글(원글) 아이디 : 원글은 삭제 후 댓글 목록의 현황 갱신을 위한 전송 
-				axios.post(`/campingProject/notice/replyDelete.do`,
+				axios.post(`/campTeam/notice/replyDelete.do`,
 				{
 					noticeNum : replyNoticeId, // 삭제할 댓글 아이디
 					originalNoticeNum : originalNoticeId, // 댓글 목록 갱신을 위한 원글 아이디
@@ -909,7 +909,7 @@ function deleteNotice(noticeNum, noticeWriter) {
 				//  
 				let encodedPass = encodeURIComponent(noticeDeletePass.value);
 				
-				let str = `/campingProject/notice/deleteProc.do?noticeNum=${noticeNum}&noticePass=${encodedPass}`;
+				let str = `/campTeam/notice/deleteProc.do?noticeNum=${noticeNum}&noticePass=${encodedPass}`;
 				
 				console.log('str : ', str);
 				

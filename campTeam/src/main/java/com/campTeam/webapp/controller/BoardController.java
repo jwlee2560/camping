@@ -10,6 +10,7 @@ import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +33,7 @@ import com.campTeam.webapp.service.BoardService;
 import com.campTeam.webapp.service.FileUploadService;
 import com.campTeam.webapp.service.ImageService;
 import com.campTeam.webapp.util.FileUploadUtil;
+import com.campTeam.webapp.domain.CustomUser;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -117,6 +119,26 @@ public class BoardController {
 		boardService.updateBoardReadcountByBoardNum(boardNum);
 		
 		return "/board/view";
+	}
+	
+	@GetMapping("/mypage.do")
+	public String mypage(Model model) {
+		
+		// Spring Security Pricipal(Session) 조회
+		Object principal = SecurityContextHolder.getContext()
+											.getAuthentication()
+											.getPrincipal();
+		
+		CustomUser customUser = (CustomUser)principal;
+		log.info("principal : {}", principal);
+		log.info("id : {}", customUser.getUsername()); // 로그인 아이디
+		
+		String id = customUser.getUsername();
+		
+		//내가 작성한 게시글(댓글 제외) 조회 
+		model.addAttribute("boardList",boardService.findMyPages(id));
+	
+		return "/board/mypage";
 	}
 	
 }

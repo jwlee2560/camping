@@ -34,6 +34,10 @@ public class CampReviewVO {
 	@Column(name="reviews")
 	private String reviews;
 	
+	// 추가
+	@Column(name="predict")
+	private int predict;
+	
 	public String[] toArray(CampReviewVO campReviewVO) {
 		
 		String[] arr = new String[3];

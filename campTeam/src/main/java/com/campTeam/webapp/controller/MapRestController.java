@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.campTeam.webapp.dao.CampDAOMyBatis;
 import com.campTeam.webapp.domain.CampEntity;
+import com.campTeam.webapp.service.CampingService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MapRestController {
 
 	@Autowired
-	CampDAOMyBatis campDAO;
+	CampingService campService;
 
 	@GetMapping("/mapRest")
 	public ResponseEntity<Object> mapRestService(@RequestParam("region") String region,
@@ -49,7 +50,7 @@ public class MapRestController {
 			regionFld = "sigugun_name";
 			regionList = Arrays.asList("안산시", "수원시", "용인시", "화성시", "성남시", "부천시", "평택시","안양시","시흥시","김포시","광주시","하남시","광명시","군포시","오산시","이천시","안성시","의왕시","양평군","여주시", "과천시");
 
-		} 
+		}
 
 		// 테마 적용
 		String searchColumn = "";
@@ -63,8 +64,6 @@ public class MapRestController {
 			case "산책로" : searchColumn = "surr_facil_trail"; searchColumnVal = "주변 시설 산책로"; break;
 			case "수상레저" : searchColumn = "surr_facil_maritime_leisure"; searchColumnVal = "주변 시설 물놀이(수상레저)"; break;
 			case "해당없음" : searchColumn = null; searchColumnVal = null; break;
-			
-			
 		}
 
 		// 질의(Query) 판정
@@ -74,9 +73,17 @@ public class MapRestController {
 		ResponseEntity<Object> response = null;
 
 		try {
-
-			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
+			//10개만 추출
+//			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
+//			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
+//			campList = campDAO.getTotalCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
+//					  .stream()
+//					  .limit(10)
+//					  .toList();
 // 			log.info("campList size : {}", campList.size());
+
+			// 별점, 긍정/부정 지수 추가
+			campList = campService.recommendCamps(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
 
 			if (campList.isEmpty() == true) {
 

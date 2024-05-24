@@ -6,20 +6,89 @@
 
 <head>
 <meta charset="utf-8">
-<title>주소로 장소 표시하기</title>
+<title>캠핑찾기</title>
+
+<style>
+/* 모달 팝업창 */
+#modal_map {
+	position:absolute;
+	left:0px;
+	top:0px;
+    width:1300px;
+    height:600px;
+    background-color:#fff;
+
+    font-size:1em;
+    color:#60C5F1;
+    text-align:center;
+    padding:10px 10px;
+
+    /* 패널 외곽선 처리 */
+    border:3px solid #EBEEEF;
+
+    /* 패널 모서리 곡면 처리 */
+    border-radius:10px;
+
+    /* 초기 상태 */
+    visibility:hidden;
+    z-index:10;
+}
+
+/* 모달 헤더 */
+#modal_map_header {
+	margin:auto;
+	height:50px;
+	display:flex;
+	align-items:center;
+}
+
+/* 모달 헤더 */
+#modal_map_header_title {
+	margin:auto;
+	height:50px;
+	width:500px;
+	align-items:center;
+	justify-content:center;
+	font-family:"Black Han Sans",sans-serif;
+	font-size:25px;
+	color: #000;
+}
+
+
+#modal_map_header_close {
+	width:100px;
+	font-size:1em;
+	font-weight:bolder;
+    display:flex;
+    justify-content: flex-end;
+}
+
+/* 모달 본문 */
+#modal_map_body {
+	margin-top:0px;
+	padding:10px;
+    /* 글꼴색 */
+    color:#000;
+    display:flex;
+    height:calc(100% - 50px);
+    overflow:hidden;
+    background-color:rgb(248, 248, 248);
+}
+</style>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902b7b97c1c375075b85e37ed1d667bf"></script>
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <script>
 	$(function() {
 
-		// https://developers.kakaomobility.com/docs/navi-api/directions/
-		// 
-		// curl -v -X GET "https://apis-navi.kakaomobility.com/v1/directions?origin=127.11015314141542,37.39472714688412&destination=127.10824367964793,37.401937080111644&waypoints=&priority=RECOMMEND&car_fuel=GASOLINE
-		//			&car_hipass=false&alternatives=false&road_details=false" 
-		//	 -H "Authorization: KakaoAK KAKAO REST API KEY"
-		console.log("테스트");
+		// 개별 캠핑장 정보 모달 가리기
+	 	let modal = document.getElementById("modal_map");
+	 	let modalBody = document.getElementById("modal_map_body");
+	 	modalBody.innerHTML=""; // 이전 버전에서 여기서 오류 !
 
 		let region = document.getElementById("region");
 		let thema = document.getElementById("thema");
@@ -46,13 +115,10 @@
 		if (campJSON.trim() != "") {
 			
 			campJSON = campJSON.replaceAll('&quot;', '"').replaceAll("]]", "]"); // JSON 수신 자료 중 불순물 제거
-
 			console.log("campJSON : ", campJSON);
-
 			console.log("내용이 있다면...");
 
 			let camps = JSON.parse(campJSON.trim());
-
 			console.log("camps : ", camps[0]);
 
 			var container = document.getElementById('map');
@@ -129,7 +195,7 @@
 											<tr>
 										      <th scope="row">${i}</th>
 										      <td>${camps[i].campName}</td>
-										      <td>${camps[i].roadAddress}</td>
+										      <td>${camps[i].phone}</td>
 										      <td>${camps[i].roadAddress}</td>
 										      <td>${camps[i].weekdayOpStatus}</td>
 										      <td>${camps[i].weekendOpStatus}</td>
@@ -156,6 +222,27 @@
 
 
 		/////////////////////////////////////////////////////////////////////////////
+		
+		// 캠핑장 정보 모달 닫기
+		$("#close_btn").click(function(e) {
+
+			var modal = document.getElementById("modal_map");
+		 	modal.style.visibility = 'hidden';
+
+		});
+		
+		// 캠핑장 정보 모달 열기
+		$("#btn").click(function(e) {
+
+			var modal = document.getElementById("modal_map");
+		 	modal.style.visibility = 'visible';
+		 	// modal.style.position = 'fixed';
+		 	modal.style.left = "calc(50vw - 650px)";
+		 	modal.style.top = "calc(50vh - 300px)";
+		 	modal.style.width = "1300px";
+		 	modal.style.height = "600px";
+
+		});
 		
 		$("#search-btn").click(function(e) {
 				
@@ -207,8 +294,40 @@
 				    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
 				    var camp = { title : '', latlng : '' };
+				    
+				    let campHeadPnl= `<table id="campRecList" class="table table-striped">
+						  <thead>
+						    <tr>
+						      <th scope="col">번호</th>
+						      <th scope="col">캠핑장명</th>
+						      <th scope="col">전화번호</th>
+						      <th scope="col">주소</th>
+						      <th scope="col">평일운영</th>
+						      <th scope="col">주말운영</th>
+						      <th scope="col">취사시설</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  </tbody> 
+						  </table>`;
+						  
+					result.innerHTML = 	campHeadPnl;	
+					let tableBody = document.querySelector("#campRecList tbody");
 
 					for (var i=0; i<response.length; i++) {
+						
+						// 캠핑장 목록(패널) 출력 (낱개)
+						var campPnl = `<tr>
+									      <th scope="row">${i+1}</th>
+									      <td>${response[i].campName}</td>
+									      <td>${response[i].phone}</td>
+									      <td>${response[i].roadAddress}</td>
+									      <td>${response[i].weekdayOpStatus}</td>
+									      <td>${response[i].weekendOpStatus}</td>
+									      <td>${response[i].glamCookware}</td>
+									    </tr>`;
+					    
+					    tableBody.innerHTML += campPnl;
 
 						camp.title = response[i].campName;
 						camp.latlng = new kakao.maps.LatLng(response[i].latitude, response[i].longitude);
@@ -239,169 +358,214 @@
 	 						  	console.log("캠프장 지번 주소 : ", response[i].roadAddress);
 
 								//////////여기서 추가해서 결과값 
-								let result = document.getElementById("result");
+							 	let modal = document.getElementById("modal_map");
+							 	let modalBody = document.getElementById("modal_map_body");
+							 	modal.style.visibility = 'visible';
+							 	modal.style.left = "calc(50vw - 650px)";
+							 	modal.style.top = "calc(50vh - 300px)";
 								
-								let campResult = `<table class="table">
-												  <thead>
-												    <tr>
-												      <th scope="col">번호</th>
-												      <th scope="col">캠핑장명</th>
-												      <th scope="col">전화번호</th>
-												      <th scope="col">주소</th>
-												      <th scope="col">평일운영</th>
-												      <th scope="col">주말운영</th>
-												      <th scope="col">취사시설</th>
-												    </tr>
-												  </thead>
-												  <tbody>
-													<tr>
-												      <th scope="row">${i}</th>
-												      <td>${response[i].campName}</td>
-												      <td>${response[i].phone}</td>
-												      <td>${response[i].roadAddress}</td>
-												      <td>${response[i].weekdayOpStatus}</td>
-												      <td>${response[i].weekendOpStatus}</td>
-												      <td>${response[i].glamCookware}</td>
-												    </tr>
-												  </tbody>
-												</table>`;
-								// 캠핑장 정보 출력
-								result.innerHTML = campResult;
+								let campResult = `<div class="d-flex justify-content-center align-items-center">
+								    <div class="d-flex justify-content-center align-items-center">
+							        <img class="mt-2 ms-2 ps-2 me-0 px-0" src="${response[i].image == null ? '/campTeam/img/no_image.png' : response[i].image}" style="width: 500px; height: 350px;">
+	
+								    <div class="d-flex flex-column mb-3 mt-2 ms-1 ps-2 me-0 px-0">
+								        <div class="p-2">
+								          <table class="table">
+								            <thead>
+								                <tr>
+								                    <th scope="col">캠핑장명</th>
+								                    <th scope="col">번호</th>
+								                    <th scope="col">도로명주소</th>
+								                    <th scope="col">취사시설</th>
+								                </tr>
+								            </thead>
+								            <tbody>
+								                <tr>
+								                    <td>${response[i].campName}</td>
+								                    <td>${response[i].phone}</td>
+								                    <td>${response[i].roadAddress}</td>
+								                    <td>${response[i].glamCookware}</td>
+								                </tr>
+								            </tbody>
+								           </table>
+								        </div>
+								        
+								        <div class="p-2">
+								        <table class="table 1">
+							            <thead>
+							                <tr>
+							                    <th scope="col">평일운영</th>
+							                    <th scope="col">주말운영</th>
+							                    <th scope="col">지번주소</th>
+							                    <th scope="col">긍정</th>
+							                    <th scope="col">부정</th>
+							                    <th scope="col">별점정보</th>
+							                </tr>
+							            </thead>
+							            <tbody>
+							                <tr>
+							                    <td>${response[i].weekdayOpStatus}</td>
+							                    <td>${response[i].weekendOpStatus}</td>
+							                    <td>${response[i].jibunAddress}</td>
+							                    <td>${response[i].reviewPositive}</td>
+							                    <td>${response[i].reviewNegative}</td>
+							                    <td>${response[i].avgRating}</td>
+							                </tr>
+							            </tbody>
+							           </table> 
+							           </div>
+							           
+							           <div class="p-2">
+							           <table class="table 2">
+							            <thead>
+							                <tr>
+							                    <th scope="col">인터넷</th>
+							                    <th scope="col">전기시설</th>
+							                    <th scope="col">마트</th>
+							                    <th scope="col">온수</th>
+							                    <th scope="col">난방시설</th>
+							                </tr>
+							            </thead>
+							            <tbody>
+							                <tr>
+							                    <td>${response[i].facilWifi}</td>
+							                    <td>${response[i].facilElectricity}</td>
+							                    <td>${response[i].facilMart}</td>
+							                    <td>${response[i].facilHotWater}</td>
+							                    <td>${response[i].glamHeater}</td>
+							                </tr>
+							            </tbody>
+							           </table> 
+							        </div>
+								   </div>
+								</div>`;
+									
+				// 캠핑장 정보 출력
+				modalBody.innerHTML = campResult;
 
-							});
+			});
 
-						})(marker, camp.title, i) // 즉시 실행 함수 실인자
+		})(marker, camp.title, i) // 즉시 실행 함수 실인자
 
-						/////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////
 
-					} // for
-				} // success (http status 200)
+	} // for 
+	
+	let campPnlHeight = 50*response.length;
+	console.log("패널 높이 : ",campPnlHeight);
+	result.style.height = campPnlHeight + "px"; // 높이 설정
+	
+} // success (http status 200)
 
-			}) // done
-			.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
+}) // done
+.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
 
-				// alert(data.status);
-				alert("서버에 문제가 발생하였습니다.");
-				console.log("data : ", data);
-				console.log("상태 코드 : ", data.status);
-				console.log("xhr : ", xhr);
-			})
-		}); // ajax
-		
-		////////////////////////////////////////////////////////
-		
-			
-	});
+// alert(data.status);
+alert("서버에 문제가 발생하였습니다.");
+console.log("data : ", data);
+console.log("상태 코드 : ", data.status);
+console.log("xhr : ", xhr);
+})
+}); // ajax
+
+////////////////////////////////////////////////////////
+});
 </script>
 
 </head>
 
 <body>
-	<div layout:fragment="content">
-	
-		<div class="border border-secondary my-5 w-75 mx-auto">
 
-			<div class="row w-100 ps-0">
-
-				<ul class="row mb-2 list-unstyled list-group list-group-horizontal">
-
-					<li class="col-6 pt-2 mt-4 ms-4 ps-4 me-0 px-0">
-						<strong>지역</strong>
-						<div class="mt-3 mx-0 px-0">
-							<select id="region" name="region" class="form-select">
-								<option>경기 북부</option>
-								<option>경기 남부</option>
-							</select>
-						</div></li>
-
-					<li class="col-5 pt-2 mt-4 ms-5 me-0 px-0">
-						<strong>주변시설</strong>
-						<div class="mt-3 mx-0 px-0">
-							<select id="thema" name="thema" class="form-select">
-								<option>체험시설</option>
-								<option>계곡</option>
-								<option>낚시</option>
-								<option>놀이시설</option>
-								<option>수영장</option>
-								<option>산책로</option>
-								<option>수상레저</option>
-								<option>해당없음</option>
-							</select>
-						</div></li>
-				</ul>
-			</div>
-
-			<div class="row mx-auto mt-1 mb-3 ps-3">
-				<ul class="list-unstyled">
-					<li class="mt-2"><strong>키워드 검색</strong></li>
-				</ul>
-				<div class="flex justify-content-center col-6">
-					<input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요.">
-				</div>
-				<div class="flex justify-content-center col-3">
-					<button id="search-btn" class="btn btn-dark" type="button">캠핑장 검색</button>
-				</div>
-			</div>
+		<div layout:fragment="content">
+		
+		<!-- modal -->
+		<div id="modal_map">
+		
+		<!-- modal header -->
+		<div id="modal_map_header">
+		
+		<!-- modal title -->
+		<div id="modal_map_header_title">
+		 캠핑장 정보
+		 </div>
+		 
+		<!-- closing button icon -->
+		<div id="modal_map_header_close">
+		    <a href="#" id="modal_close_btn">
+				<span id="close_btn" class="material-icons" style="color:#60C5F1">
+		        	clear
+		        </span>
+		    </a>
 		</div>
-
-		<!-- 캠핑장 정보  -->
-		<div id="result" class="mx-auto my-4" style="width:1425px; height:100px; background-color:#fff"></div>
+		</div>
+		 
+		<!-- modal content -->
+		<div id="modal_map_body">
+		</div>
+		
+		<!-- modal footer -->
+		<div id="modal_map_footer">
+		</div>
+		
+		</div>
+		
+		<!--// modal  -->
+		
+		
+		<div class="border border-secondary my-5 w-75 mx-auto">
+		
+		<div class="row w-100 ps-0">
+		
+		<ul class="row mb-2 list-unstyled list-group list-group-horizontal">
+		
+			<li class="col-6 pt-2 mt-4 ms-4 ps-4 me-0 px-0">
+				<strong>지역</strong>
+				<div class="mt-3 mx-0 px-0">
+					<select id="region" name="region" class="form-select">
+						<option>경기 북부</option>
+						<option>경기 남부</option>
+					</select>
+				</div></li>
+		
+			<li class="col-5 pt-2 mt-4 ms-5 me-0 px-0">
+				<strong>주변시설</strong>
+				<div class="mt-3 mx-0 px-0">
+					<select id="thema" name="thema" class="form-select">
+						<option>체험시설</option>
+						<option>계곡</option>
+						<option>낚시</option>
+						<option>놀이시설</option>
+						<option>수영장</option>
+						<option>산책로</option>
+						<option>수상레저</option>
+						<option>해당없음</option>
+					</select>
+				</div></li>
+		</ul>
+		</div>
+		
+		<div class="row mx-auto mt-1 mb-3 ps-3">
+		<ul class="list-unstyled">
+			<li class="mt-2"><strong>키워드 검색</strong></li>
+		</ul>
+		<div class="flex justify-content-center col-6">
+			<input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요.">
+		</div>
+		<div class="flex justify-content-center col-3">
+			<button id="search-btn" class="btn btn-dark" type="button">캠핑장 검색</button>
+		</div>
+		</div>
+		</div>
+		
+		<!-- 캠핑장 정보 -->
+		<div id="result" class="mx-auto my-4" style="width:1425px; height:0px; background-color:#fff"></div>
 		
 		<!-- 캠핑장 지도 정보  -->
 		<div id="map" style="width: 100%; height: 600px;"></div>
 		
-
+		
 		<!--/////////////////////////////////////////////////////////////////////  -->
-
 		
-		<!-- <script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=902b7b97c1c375075b85e37ed1d667bf&libraries=services"></script>
-		<script>
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			mapOption = {
-				center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-				level : 3
-			// 지도의 확대 레벨
-			};
-
-			// 지도를 생성합니다    
-			var map = new kakao.maps.Map(mapContainer, mapOption);
-
-			// 주소-좌표 변환 객체를 생성합니다
-			var geocoder = new kakao.maps.services.Geocoder();
-		
-			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch(
-							'제주특별자치도 제주시 첨단로 242',
-							function(result, status) {
-
-								// 정상적으로 검색이 완료됐으면 
-								if (status === kakao.maps.services.Status.OK) {
-
-									var coords = new kakao.maps.LatLng(
-											result[0].y, result[0].x);
-
-									// 결과값으로 받은 위치를 마커로 표시합니다
-									var marker = new kakao.maps.Marker({
-										map : map,
-										position : coords
-									});
-									
-									
-
-									// 인포윈도우로 장소에 대한 설명을 표시합니다
-									var infowindow = new kakao.maps.InfoWindow(
-											{
-												content : '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-											});
-									infowindow.open(map, marker);
-
-									// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-									map.setCenter(coords);
-								}
-							});
-		</script> -->
-	</div>
+</div>
 </body>
 </html>
-

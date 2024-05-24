@@ -53,4 +53,7 @@ public interface BoardDAO extends PagingAndSortingRepository<BoardVO, Integer>{
 
 	// 게시글 삭제
 	void deleteById(int boardNum);
+	
+	// 내가 작성한 게시글 (댓글 제외) 조회
+	List<BoardVO> findByBoardWriterAndBoardReRefOrderByBoardDate(String boardWriter, int boardReRef);
 }

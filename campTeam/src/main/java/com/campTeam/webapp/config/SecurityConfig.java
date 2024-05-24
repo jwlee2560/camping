@@ -109,7 +109,7 @@ public class SecurityConfig {
 							                			 "/board/update.do", "/board/updateProc.do",
 							                			 "/board/replyWrite.do", "/board/replyUpdate.do", 
 							                			 "/board/getRepliesAll.do", "/board/replyDelete.do",
-							                			 "/board/deleteProc.do").authenticated()
+							                			 "/board/deleteProc.do", "/board/mypage.do").authenticated()
 						                .anyRequest().authenticated()); 
                 
            http.formLogin(formLogin -> formLogin
@@ -136,7 +136,7 @@ public class SecurityConfig {
           
           
           http.rememberMe((remember) -> remember
-					.key("campingProject")
+					.key("campTeam")
 					.userDetailsService(userDetailsService)
 					.tokenRepository(getJDBCRepository())
 					.tokenValiditySeconds(60 * 60 * 24)); // 24시간(1일)

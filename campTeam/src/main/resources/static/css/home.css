@@ -3,7 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Gothic&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
 .section_05 {
     position: relative;
@@ -58,11 +57,11 @@
 }
 
 .post-wrapper {
-	width:350px;
-	height:500px;
-	background-color:rgba(176, 196, 222, 0.50);
-	text-align:center;
-	}
+   width:350px;
+   height:500px;
+   background-color:rgba(176, 196, 222, 0.70);
+   text-align:center;
+   }
 	
 .post-slider .post-wrapper{
 
@@ -83,10 +82,9 @@
 }
 
 .post-slider .post-wrapper .post .post-info{
-  font-size:18px;
+  font-size:15px;
   height:30%;
   padding-left:10px;
-  font-family: Do Hyeon;
 }
 
 .post-slider .post-wrapper .post .slider-image{

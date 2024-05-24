@@ -6,7 +6,7 @@
 	
 <div th:fragment="header">
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&display=swap" rel="stylesheet">
 	<!-- //////////////////////////////////////////////////////////// -->
 
 	<!--
@@ -111,7 +111,7 @@
 		</ul>
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="menu(menu)">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#" th:href="@{/}" style="font-size: 30px; font-family: Black Han Sans;">캠핑 하자</a>
+    <a class="navbar-brand" href="#" th:href="@{/}" style="font-size: 30px; font-family: Black Han Sans;">캠핑하자</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -137,18 +137,18 @@
      <!--  <form class="d-flex" role="search"> -->
        			<!-- 로그인 인증이 안되었을 때  -->
 			<a sec:authorize="isAnonymous()" class="btn btn-outline-success my-2 me-2" th:href="@{/login}">로그인</a>
-			<a sec:authorize="isAnonymous()" class="btn btn-outline-success" th:href="@{/member/join.do}">회원 가입</a>
+			<a sec:authorize="isAnonymous()" class="btn btn-outline-success" th:href="@{/member/join.do}">회원가입</a>
      <!--  </form> -->
      		<form class="d-flex" role="search" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
 				<!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-				<span class="text-white justify-content-center" sec:authentication="name">사용자</span> <span class="text-white row justify-content-center mx-2" sec:authentication="principal.authorities">권한</span>
+				<!-- <span class="text-white justify-content-center" sec:authentication="name">사용자</span> <span class="text-white row justify-content-center mx-2" sec:authentication="principal.authorities">권한</span> -->
 				<div class="btn-group">
 				  <button type="button" class="btn btn-success dropdown-toggle mx-2" data-bs-toggle="dropdown" aria-expanded="false">
-				    내 정보
+				    마이페이지
 				  </button>
 				  
 				  <ul class="dropdown-menu">
-				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/welcome}">마이페이지</a></li>
+				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/board/mypage.do}">내 게시글</a></li>
 				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/logout}">로그아웃</a></li>
 				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/member/view.do}">회원정보조회</a></li>
 				    <li sec:authorize="isAuthenticated()"><a class="dropdown-item" href="#" th:href="@{/member/update.do}">회원정보수정</a></li>

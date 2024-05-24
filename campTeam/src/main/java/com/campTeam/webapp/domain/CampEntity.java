@@ -281,4 +281,3 @@ public class CampEntity {
 	private String reviewNegative;
 
 }
-

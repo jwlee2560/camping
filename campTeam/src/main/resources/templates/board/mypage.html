@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout2}"
+	lang="ko-kr">
+
+
+<!-- layout -->
+<div layout:fragment="content">
+
+	<div class="content_sect_pnl">
+
+		<!-- 인자 현황판 이전(move) :   -->
+		
+		<h2 class="d-flex justify-content-center m-5">
+			내가 쓴 게시글 
+		</h2>
+		
+		<table class="table mx-2 mx-auto" style="width:50vw">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>아이디</th>
+					<th>제목</th>
+					<th>작성일</th>
+					
+					<!-- 조회수 추가 -->
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${not #lists.isEmpty(boardList)}"
+					th:each="board, st : ${boardList}">
+					
+					<td th:utext="${board.boardNum}"></td>
+					<td th:utext="${board.boardWriter}"></td>
+					<td>
+						<a th:href="@{'/board/view.do/'+ ${board.boardNum}}" th:utext="${board.boardSubject}"></a>
+						<!-- 글 내용 중 삽입 이미지 존재 여부 -->
+						<span th:if="${#strings.contains(board.boardContent, 'img')}">
+							<i class="bi bi-card-image"></i>
+						</span>
+													
+						<!-- 업로드 파일 존재 여부 -->
+						<span th:if="${!#strings.isEmpty(board.boardFile)}">
+							<i class="bi bi-paperclip"></i>
+						</span>
+					</td>
+					<td th:utext="${#dates.format(board.boardDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+					
+					<!-- 조회수 추가 -->
+					<td th:utext="${board.boardReadCount}"></td>
+				</tr>
+			</tbody>
+
+		</table>
+		
+		<!-- 게시판 메뉴 :
+	         ex) 관리자 모드 : 체크박스 제어에 따른 관리자 모드에서의 메뉴(삭제 등). 관리자 등급이어야 표기됨		         
+		-->
+		<div id="board_menu" class="mx-auto d-flex justify-content-end mt-4" style="width:45vw">
+			 
+			 <!-- 게시글 목록에서 바로 삭제 못하도록 임시 생략 처리-->
+			 <!-- <a href="#" id="board_delete_btn" class="btn btn-primary me-2" 
+			 	sec:authorize="isAuthenticated()">삭제</a> -->
+			 
+			 <a th:href="@{/board/write.do}" class="btn btn-primary me-2" 
+			 	sec:authorize="isAuthenticated()">
+			 	<i class="bi bi-pen"></i>&nbsp;글쓰기
+		 	 </a>	
+		 	 
+		 	 <!-- 게시글 목록 -->
+		 	 <a class="btn btn-primary" th:href="@{/board/mypage.do}">
+				게시글 목록
+			 </a>			
+		</div>
+
+		<!-- 검색 -->
+		<!-- 간격 : mt-2 mb-5, 줄 단위 배치 : row, 레이아웃 배분 비율 : ex) col-3 (3/12) -->
+		<form th:action="@{/board/searchList.do}" method="get">
+		
+			<div id="search_pnl" class="mx-auto row mt-2 mb-5" style="width:50vw">
+			
+				<!-- 게시글 목록 이동에 따른 조치 : 빈 영역 -->
+				<div class="col-3">
+				</div>
+				
+				<div id="select_pnl" class="col-2 pe-0">
+					<select class="form-select" id="searchKey" name="searchKey" aria-label="검색 구분">
+					  <option selected value="board_subject">글제목</option>
+					  <option value="board_content">내용</option>
+					  <option value="board_writer">작성자</option>
+					</select>
+				</div>
+				
+				<div id="search_pnl" class="col-4">
+				
+					<input type="text" class="form-control" id="searchWord" name="searchWord" />
+				</div>
+				
+				<div id="search_btn_pnl" class="col-1 ps-0">
+					<button id="search_btn" class="btn btn-primary">
+						<!-- bootstrap icon
+						     : https://icons.getbootstrap.com/icons/search/  -->
+						<i class="bi bi-search"></i>
+					</button>
+				
+				</div>
+				
+				
+			</div>
+			
+		</form>
+		<!--// 검색 -->
+		
+	</div>
+	<!--// content -->	
+	
+</div>
+
+</html>

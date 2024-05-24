@@ -219,4 +219,11 @@ public class BoardService {
 		return result;
 	}
 	
+	// 내가 작성한 게시글 (댓글 제외) 조회
+	@Transactional(readOnly = true)
+	public List<BoardVO> findMyPages(String boardWriter){
+	
+		return boardDAO.findByBoardWriterAndBoardReRefOrderByBoardDate(boardWriter, 0);
+ 	}
+	
 }

@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>home</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
 <!--slick slider 필요 태그 st-->
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -31,9 +33,9 @@ $(function() {
 	        slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
 	        slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
 			autoplay: true,
-			autoplaySpeed: 4000,
+			autoplaySpeed: 3000,
 	        arrows: true, //넘기기 버튼 화살표 여부
-	        dots:false, //네비게이션 버튼 dot유형
+	        dots:true, //네비게이션 버튼 dot유형
 	     	// asNavFor: '.terms-nav', //함께 움직이는 슬라이드 메뉴영역  --- 주의) 이 부분(term-nav) 없기 때문에 오류 발생 (삭제)
 	        infinite: true, //무한반복 옵션  -- 무한 루프 활성화
 	        adaptiveHeight: true, // 슬라이더 높이를 현재 슬라이드에 맞춤
@@ -67,9 +69,9 @@ $(function() {
 					console.log("캠프장-1 : ", response[i]);
 
 					 camps += `
-							<div class="post">
-					 			<img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
-							   	<div class="post-info mt-3">
+							<div class="post" style="font-family: Do Hyeon;">
+					 			<img src="${response[i].image==null ? '/campTeam/img/no_image.png':response[i].image}" class="slider-image">
+							   	<div class="post-info mt-3" style="font-size: 20px;">
 							   		<h4><a href="#">${response[i].campName}</a></h4>
 							   		<i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
 							   		${response[i].jibunAddress.substring(0,50)}</i>
@@ -83,9 +85,9 @@ $(function() {
 				        slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
 				        slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
 						autoplay: true,
-						autoplaySpeed: 4000,
+						autoplaySpeed: 3000,
 				        arrows: true, //넘기기 버튼 화살표 여부
-				        dots:false, //네비게이션 버튼 dot유형
+				        dots:true, //네비게이션 버튼 dot유형
 				        // asNavFor: '.terms-nav', //함께 움직이는 슬라이드 메뉴영역  --- 주의) 이 부분(term-nav) 없기 때문에 오류 발생 (삭제)
 				        infinite: true, //무한반복 옵션  -- 무한 루프 활성화
 				        adaptiveHeight: true, // 슬라이더 높이를 현재 슬라이드에 맞춤
@@ -156,16 +158,15 @@ $(function() {
 						console.log("캠프장-1 위도 : ", response[i].latitude);
 						console.log("캠프장-1 경도 : ", response[i].longitude);
 
-						 camps += `
-								<div class="post">
-						 		   <img src="img/thumb_324_224_7068XomaEU0GHukSA6oTW0PD.jpeg" class="slider-image">
-								   <div class="post-info mt-3">
-									   <h4><a href="#">${response[i].campName}</a></h4>
-									   <i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
-									   		${response[i].jibunAddress.substring(0,50)}
-								   	   </i>
-								   </div>
-							   </div>`;
+						 camps += `<div class="post" style="font-family: Do Hyeon;">
+							 		   <img src="${response[i].image==null ? '/campTeam/img/no_image.png':response[i].image}" class="slider-image">
+									   <div class="post-info my-3" style="font-size: 20px;">
+										   <h4><a href="#">${response[i].campName}</a></h4>
+										   <i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
+										   		${response[i].jibunAddress.substring(0,50)}
+									   	   </i>
+									   </div>
+							   		</div>`;
  					} // for
 
 					$(".post-wrapper").html(camps);
@@ -177,7 +178,7 @@ $(function() {
 				        slidesToShow: 3, //한번에 보여줄 슬라이드 갯수
 				        slidesToScroll: 1, //한번에 넘겨지는 슬라이드 갯수
 						autoplay: true,
-						autoplaySpeed: 4000,
+						autoplaySpeed: 500,
 				        arrows: true, //넘기기 버튼 화살표 여부
 				        dots:true, //네비게이션 버튼 dot유형
 				     	// asNavFor: '.terms-nav', //함께 움직이는 슬라이드 메뉴영역  --- 주의) 이 부분(term-nav) 없기 때문에 오류 발생 (삭제)

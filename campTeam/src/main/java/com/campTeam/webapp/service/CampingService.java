@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import com.campTeam.webapp.dao.CampDAOMyBatis;
 import com.campTeam.webapp.dao.CampRepository;
+import com.campTeam.webapp.dao.CampReviewRepository;
 import com.campTeam.webapp.domain.CampEntity;
+import com.campTeam.webapp.domain.CampReviewVO;
 import com.campTeam.webapp.domain.UserRequestVO;
 import com.campTeam.webapp.domain.UserResultVO;
 import com.opencsv.CSVReader;
@@ -28,6 +31,12 @@ public class CampingService {
 
 	@Autowired
 	CampRepository campRepo;
+
+	@Autowired
+	CampDAOMyBatis campDAO;
+
+	@Autowired
+	CampReviewRepository campReviewRepo;
 
 	private static final int EARTH_RADIUS = 6371; // 지구 반경(km)
 
@@ -223,8 +232,8 @@ public class CampingService {
 
 		flag = month >= 3 && month <= 5 ? campEntity.getSpringOpStatus().equals("봄 운영") :
 			   month >= 6 && month <= 8 ? campEntity.getSummerOpStatus().equals("여름 운영") :
-			   month >= 9 && month <= 11 ? campEntity.getSummerOpStatus().equals("가을 운영") :
-			   campEntity.getSummerOpStatus().equals("겨울 운영");
+			   month >= 9 && month <= 11 ? campEntity.getFallOpStatus().equals("가을 운영") :
+			   campEntity.getWinterOpStatus().equals("겨울 운영");
 
 		return flag;
 	}
@@ -282,17 +291,6 @@ public class CampingService {
 		String dest = userRequestVO.getDestination();
 		log.info("행선 예정지 : {}", dest);
 
-//		long nameless = legacyCampList.stream()
-//							.filter(x -> x.getSigugunName() != null && x.getSigugunName().equals("")).count();
-//
-//		log.info("시구군명이 없는 캠핑장 수 : {}", nameless);
-
-		// filter 메서드에서 null 값 점검 주의 !
-//		legacyCampList.stream()
-//					  .filter(x -> (x.getSigugunName() != null && (x.getSidoName().contains(dest) || x.getSigugunName().contains(dest))))
-//					  .toList()
-//					  .forEach(x -> { log.info("{}", x); });
-
 		// filter 메서드에서 null 값 점검 주의 !
 		legacyCampList = legacyCampList.stream()
 									   .filter(x -> (x.getSigugunName() != null && (x.getSidoName().contains(dest) || x.getSigugunName().contains(dest))))
@@ -346,6 +344,69 @@ public class CampingService {
 		log.info("recommList size : {}", recommList.size());
 
 		return recommList;
+	} //
+
+	/**
+	 * 개인별 캠핑 추천(3조)
+	 *
+	 * @param regionColumn 지역 필드  ex) 경기 북부
+	 * @param regionList (실제)지역 ex) "연천군", "동두천시", "포천시", "파주시", "양주시", "의정부시", "구리시", "남양주시", "고양시", "가평군"
+	 * @param searchColumn  검색 필드  ex) surr_facil_fishing
+	 * @param searchColumnVal  검색 필드 값  ex) 낚시 시설 있음
+	 * @param searchWord 검색어  ex) 가평
+	 *
+	 * @return
+	 */
+	public List<CampEntity> recommendCamps(String regionColumn, List<String> regionList,
+			   							   String searchColumn, String searchColumnVal, String searchWord) {
+
+		List<CampEntity> campList = new ArrayList<>();
+		List<CampReviewVO> reviewList = null;
+
+		// 10개만 한정 선정
+		campList = campDAO.getTotalCampBySearching(regionColumn, regionList, searchColumn, searchColumnVal, searchWord)
+						  .stream()
+						  .limit(10)
+					  	  .toList();
+
+		for (CampEntity campEntity : campList) {
+
+			// 네이버 별점 및 긍정/부정 지수
+			if (searchWord.equals("") == true) {
+
+				reviewList = (List<CampReviewVO>) campReviewRepo.findAll();
+
+			} else if (searchWord != null) {
+
+				reviewList = campReviewRepo.findAllByCampName(searchWord);
+
+			} // if
+
+			String avgRating = ""; // 네이버 별점
+			int positiveDegree = 0; // 긍정 지수
+			int negativeDegree = 0; // 부정 지수
+
+			if (reviewList.size() > 0) {
+
+				avgRating = (reviewList.get(0).getAvgRating() == null || reviewList.get(0).getAvgRating().equals("")) ?
+						    "별점정보 없음" : reviewList.get(0).getAvgRating();
+				positiveDegree = (int)reviewList.stream().filter(x->x.getPredict() == 1).count();
+				negativeDegree = (int)reviewList.stream().filter(x->x.getPredict() == 0).count();
+
+			} else {
+
+				avgRating = "별점정보 없음";
+				positiveDegree = 0;
+				negativeDegree = 0;
+			}
+
+			campEntity.setAvgRating(avgRating); // 네이버 별점
+			campEntity.setReviewPositive(positiveDegree + ""); // 긍정 지수
+			campEntity.setReviewNegative(negativeDegree + ""); // 부정 지수
+
+		} // for
+
+		return campList;
 	} //
 
 } //
