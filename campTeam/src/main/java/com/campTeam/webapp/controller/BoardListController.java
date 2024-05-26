@@ -29,6 +29,8 @@ public class BoardListController {
 					   @RequestParam(value="limit", defaultValue="10") int limit,
 					   Model model) {
 		
+		model.addAttribute("header", "board");
+		
 		log.info("게시글 목록");
 		List<BoardVO> boardList = new ArrayList<>();
 		

@@ -28,28 +28,30 @@ public class HomeController {
 	}
 	
 	@GetMapping("/about.do")
-	public String about() {
+	public String about(Model model) {
+		
+		model.addAttribute("header", "about");
 		
 		log.info("소개");
 		
 		return "about";
 	}
 	
-	@GetMapping("/notice.do")
-	public String content1() {
-		
-		log.info("공지사항");
-		
-		return "content1";
-	} //
-	
-	@GetMapping("/searchlist.do")
-	public String content2() {
-		
-		log.info("추천검색");
-		
-		return "content2";
-	} //
+//	@GetMapping("/notice.do")
+//	public String content1() {
+//		
+//		log.info("공지사항");
+//		
+//		return "content1";
+//	} //
+//	
+//	@GetMapping("/searchlist.do")
+//	public String content2() {
+//		
+//		log.info("추천검색");
+//		
+//		return "content2";
+//	} //
 	
 	@GetMapping("/login")
 	public String login() {

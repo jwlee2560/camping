@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class CampingService {
+public class CampingService2 {
 
 	@Autowired
 	CampRepository campRepo;
@@ -374,6 +374,10 @@ public class CampingService {
 						  .limit(10)
 					  	  .toList();
 		
+		String avgRating = ""; // 네이버 별점
+		int positiveDegree = 0; // 긍정 지수
+		int negativeDegree = 0; // 부정 지수
+
 		for (CampEntity campEntity : campList) {
 
 			// 네이버 별점 및 긍정/부정 지수
@@ -382,31 +386,18 @@ public class CampingService {
 				reviewList = (List<CampReviewVO>) campReviewRepo.findAll();
 
 			} else if (searchWord != null) {
-				
-				// log.info("searchWord : {}", searchWord);
-				// reviewList = campReviewRepo.findAllByCampName(searchWord);
-				log.info("캠핑장 : {}", campEntity.getCampName()); // 교정	
-				reviewList = campReviewRepo.findAllByCampName(campEntity.getCampName());
+
+				reviewList = campReviewRepo.findAllByCampName(searchWord);
 
 			} // if
-			
-			log.info("캠핑장 정보 : " + campEntity.getCampName());
-			log.info("리뷰 리스트 크기 : {}", reviewList.size());
-
-			String avgRating = ""; // 네이버 별점
-			int positiveDegree = 0; // 긍정 지수
-			int negativeDegree = 0; // 부정 지수
 
 
 			if (reviewList.size() > 0) {
-				
-				log.info("리뷰 리스트 있음");
+
 				avgRating = (reviewList.get(0).getAvgRating() == null || reviewList.get(0).getAvgRating().equals("")) ?
 						    "별점정보 없음" : reviewList.get(0).getAvgRating();
 
 			} else {
-				
-				log.info("리뷰 리스트 없음");
 
 				avgRating = "별점정보 없음";
 				// positiveDegree = 0;

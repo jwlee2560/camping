@@ -49,14 +49,16 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
     	
     	// 게시판 : summernote 추가
-    	// swagger 항목 예외(열외) 추가 : 
-    	// 참고) /v2/api-docs : swagger의 전체적인 환경설정 정보를 JSON 형식으로 보여주는 페이지
-    	// /v2/api-docs, /swagger-resources/**, /swagger/**, swagger-ui.html
+    	// swagger 항목 예외(열외) 추가 :
+    	// 참고) /v3/api-docs : swagger의 전체적인 환경설정 정보를 JSON 형식으로 보여주는 페이지
+    	// 환경 설정 정보 : /v3/api-docs/swagger-config
+    	// /v3/api-docs, /swagger-resources/**, /swagger/**, /swagger-ui/INDEX.html
     	// axios 항목 예외 추가
-    	return (web) -> web.ignoring().requestMatchers("/img/**", "/css/**", "/webjars/**", 
-    				"/images/**", "/js/**", "/v2/api-docs","/axios/**", "/swagger-resources/**", "/swagger/**", "/swagger-ui.html",
+    	return (web) -> web.ignoring().requestMatchers("/img/**", "/css/**", "/webjars/**",
+    				"/images/**", "/js/**", "/axios/**",
+    				"/swagger-resources/**", "/swagger/**", "/swagger-ui/**", "/v3/api-docs/**",
     				"/axios/**", "/bootstrap-icons/**", "/bootstrap/**", "/webjars/jquery/**",
-    				"/summernote/**");    	
+    				"/summernote/**");   	
     }
 
     @Bean
@@ -79,8 +81,8 @@ public class SecurityConfig {
 						                // security 적용 예외 URL 등록와의 중복 부분 제외 => "/"만 적용
 						                // .requestMatchers("/", "/css/**", "/webjars/**", "/images/**", "/js/**", "/axios/**", "/bootstrap-icons/**").permitAll()
 						                .requestMatchers("/","/webjars/jquery/**","/map","/img/**","/mapSearch").permitAll() 
-						                .requestMatchers("/swagger-resources/**", "/swagger/**", "/swagger-ui/index.html").permitAll()
-						                .requestMatchers("/mapRest","/member/hasFld/**").permitAll()
+						                // .requestMatchers("/swagger-resources/**", "/swagger/**", "/swagger-ui/index.html").permitAll()
+						                .requestMatchers("/mapRest", "/mapRestOne", "/member/hasFld/**").permitAll()
 						                .requestMatchers("/member/view.do", "/member/hasFldForUpdate/**").authenticated()
 						                .requestMatchers("/member/update.do", "/member/updateProc.do").authenticated()
 						                .requestMatchers("/member/updateSess.do", "/member/updateSessProc.do").authenticated()

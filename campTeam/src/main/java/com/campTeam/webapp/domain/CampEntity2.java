@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CampEntity {
+public class CampEntity2 {
 	
 	/** 캠핑장 아이디  */
 	@Id
@@ -264,93 +264,4 @@ public class CampEntity {
 	@Column(name="reg_date")
 	private String regDate;
 	
-	/** 캠핑장 이미지 */
-	@Column(name="image")
-	private String image;
-	
-	/** 네이버 별점 */
-	@Column(name="avg_rating")
-	private String avgRating;
-
-	/** 네이버 리뷰(긍정지수) */
-	@Column(name="review_positive")
-	private String reviewPositive;
-
-	/** 네이버 리뷰(부정지수) */
-	@Column(name="review_negative")
-	private String reviewNegative;
-	
-	/** 캠프 박스 이미지 */
-	@Column(name="BOX_PHOTO_IMAGES")
-	private String boxPhotoImages;
-	
-	/** 캠프 인트로 이미지 */
-	@Column(name="CAMP_INTRO_IMAGES")
-	private String campIntroImages;
-
-	public CampEntity(CampEntity2 campEntity2) {
-		
-		this.id = campEntity2.getId();
-		this.campName = campEntity2.getCampName();
-		this.cate1 = campEntity2.getCate1();
-		this.cate2 = campEntity2.getCate2();
-		this.cate3 = campEntity2.getCate3();
-		this.sidoName = campEntity2.getSidoName();
-		this.sigugunName = campEntity2.getSigugunName();
-		this.eupmyundongName = campEntity2.getEupmyundongName();
-		this.ryName = campEntity2.getRyName();
-		this.bunjiName = campEntity2.getBunjiName();
-		this.roadName = campEntity2.getRoadName();
-		this.buildingNum = campEntity2.getBuildingNum();
-		this.latitude = campEntity2.getLatitude();
-		this.longitude = campEntity2.getLongitude();
-		this.zip = campEntity2.getZip();
-		this.roadAddress = campEntity2.getRoadAddress();
-		this.jibunAddress = campEntity2.getJibunAddress();
-		this.phone = campEntity2.getPhone();
-		this.homepage = campEntity2.getHomepage();
-		this.vendor = campEntity2.getVendor();
-		this.weekdayOpStatus = campEntity2.getWeekdayOpStatus();
-		this.weekendOpStatus = campEntity2.getWeekendOpStatus();
-		this.springOpStatus = campEntity2.getSpringOpStatus();
-		this.summerOpStatus = campEntity2.getSummerOpStatus();
-		this.fallOpStatus = campEntity2.getFallOpStatus();
-		this.winterOpStatus = campEntity2.getWinterOpStatus();
-		this.facilElectricity = campEntity2.getFacilElectricity();
-		this.facilHotWater = campEntity2.getFacilHotWater();
-		this.facilWifi = campEntity2.getFacilWifi();
-		this.facilCampfire = campEntity2.getFacilCampfire();
-		this.facilTrail = campEntity2.getFacilTrail();
-		this.facilPool = campEntity2.getFacilPool();
-		this.facilPlayground = campEntity2.getFacilPlayground();
-		this.facilMart = campEntity2.getFacilMart();
-		this.facilRestroom = campEntity2.getFacilRestroom();
-		this.facilShowerroom = campEntity2.getFacilShowerroom();
-		this.facilSink = campEntity2.getFacilSink();
-		this.facilExtinguisher = campEntity2.getFacilExtinguisher();
-		this.surrFacilFishing = campEntity2.getSurrFacilFishing();
-		this.surrFacilTrail = campEntity2.getSurrFacilTrail();
-		this.surrFacilBeach = campEntity2.getSurrFacilBeach();
-		this.surrFacilMaritimeLeisure = campEntity2.getSurrFacilMaritimeLeisure();
-		this.surrFacilValley = campEntity2.getSurrFacilValley();
-		this.surrFacilStream = campEntity2.getSurrFacilStream();
-		this.surrFacilPool = campEntity2.getSurrFacilPool();
-		this.surrFacilYouthExperience = campEntity2.getSurrFacilYouthExperience();
-		this.surrFacilRuralExperience = campEntity2.getSurrFacilRuralExperience();
-		this.surrFacilChildrensPlay = campEntity2.getSurrFacilChildrensPlay();
-		this.glamBed = campEntity2.getGlamBed();
-		this.glamTv = campEntity2.getGlamTv();
-		this.glamFreezer = campEntity2.getGlamFreezer();
-		this.glamInternet = campEntity2.getGlamInternet();
-		this.glamRestroom = campEntity2.getGlamRestroom();
-		this.glamAircon = campEntity2.getGlamAircon();
-		this.glamHeater = campEntity2.getGlamHeater();
-		this.glamCookware = campEntity2.getGlamCookware();
-		this.facilCharacteristics = campEntity2.getFacilCharacteristics();
-		this.facilDetail = campEntity2.getFacilDetail();
-		this.regDate = campEntity2.getRegDate();
-	}
-	
-	
-
 }

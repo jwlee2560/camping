@@ -1,0 +1,1 @@
+select image from camping_grounds_table where camp_name='열두달캠핑장';

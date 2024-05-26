@@ -36,10 +36,12 @@
 
 /* 모달 헤더 */
 #modal_map_header {
+	border-style: ridge;
 	margin:auto;
 	height:50px;
 	display:flex;
 	align-items:center;
+	background-color:rgb(240, 205, 45, 0.5);
 }
 
 /* 모달 헤더 */
@@ -65,6 +67,8 @@
 
 /* 모달 본문 */
 #modal_map_body {
+	/* border 스타일 */
+	border-style: ridge;
 	margin-top:0px;
 	padding:10px;
     /* 글꼴색 */
@@ -72,7 +76,7 @@
     display:flex;
     height:calc(100% - 50px);
     overflow:hidden;
-    background-color:rgb(248, 248, 248);
+    background-color:rgb(215, 202, 145, 0.5);
 }
 </style>
 
@@ -492,7 +496,7 @@ console.log("xhr : ", xhr);
 		<!-- closing button icon -->
 		<div id="modal_map_header_close">
 		    <a href="#" id="modal_close_btn">
-				<span id="close_btn" class="material-icons" style="color:#60C5F1">
+				<span id="close_btn" class="material-icons" style="color:red">
 		        	clear
 		        </span>
 		    </a>
@@ -546,7 +550,7 @@ console.log("xhr : ", xhr);
 		
 		<div class="row mx-auto mt-1 mb-3 ps-3">
 		<ul class="list-unstyled">
-			<li class="mt-2"><strong>키워드 검색</strong></li>
+			<li class="mt-2"><strong>키워드 검색 (예: 가평)</strong></li>
 		</ul>
 		<div class="flex justify-content-center col-6">
 			<input type="text" id="searchWord" name="searchWord" class="form-control" placeholder="검색어를 입력하세요.">

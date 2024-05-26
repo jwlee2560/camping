@@ -56,5 +56,8 @@ public interface CampDAOMyBatis {
 												   @Param("searchColumn") String searchColumn,
 												   @Param("searchColumnVal") String searchColumnVal,
 												   @Param("searchWord") String searchWord);
+	
+	@Select({"select image from camping_grounds_table where camp_name= #{campName}"})
+	public String getImage(@Param("campName") String campName);
 
 }

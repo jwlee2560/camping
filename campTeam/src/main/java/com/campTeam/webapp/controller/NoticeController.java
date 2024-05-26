@@ -62,7 +62,7 @@ public class NoticeController {
 							@RequestPart(value="noticeFile") MultipartFile noticeFile, 
 							Model model) {
 		
-		log.info("게시글 쓰기 인자 전송 현황 : ");
+		log.info("공지글 쓰기 인자 전송 현황 : ");
 		map.entrySet().forEach(arg -> {
 			log.info("{}", arg);
 		});
@@ -74,7 +74,7 @@ public class NoticeController {
 		
 		if (noticeFile.isEmpty() == false) {
 			
-			log.info("게시글 작성 처리(첨부 파일) : {}", noticeFile.getOriginalFilename());
+			log.info("공지글 작성 처리(첨부 파일) : {}", noticeFile.getOriginalFilename());
 			
 			String actualUploadFilename = FileUploadUtil.encodeFilename(noticeFile.getOriginalFilename());
 			noticeVO.setNoticeFile(actualUploadFilename);
@@ -88,10 +88,10 @@ public class NoticeController {
 		
 		noticeVO = noticeService.insertNotice(noticeVO);
 		
-		log.info("----- 게시글 저장 NoticeVO : {}", noticeVO);
+		log.info("----- 공지글 저장 NoticeVO : {}", noticeVO);
 		
 		if (noticeVO != null) {
-			msg = "게시글 저장에 성공하였습니다.";
+			msg = "공지글 저장에 성공하였습니다.";
 		}
 			
 		// TODO

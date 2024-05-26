@@ -29,6 +29,8 @@ public class NoticeListController {
 					   @RequestParam(value="limit", defaultValue="10") int limit,
 					   Model model) {
 		
+		model.addAttribute("header", "notice");
+		
 		log.info("게시글 목록");
 		List<NoticeVO> noticeList = new ArrayList<>();
 		

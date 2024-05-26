@@ -73,14 +73,6 @@ public class MapRestController {
 		ResponseEntity<Object> response = null;
 
 		try {
-			//10개만 추출
-//			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
-//			campList = campDAO.getCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
-//			campList = campDAO.getTotalCampBySearching(regionFld, regionList, searchColumn, searchColumnVal, searchWord)
-//					  .stream()
-//					  .limit(10)
-//					  .toList();
-// 			log.info("campList size : {}", campList.size());
 
 			// 별점, 긍정/부정 지수 추가
 			campList = campService.recommendCamps(regionFld, regionList, searchColumn, searchColumnVal, searchWord);
@@ -95,6 +87,44 @@ public class MapRestController {
 				response = new ResponseEntity<>(campList, HttpStatus.OK);
 
 			} // 리스트 확보 여부
+
+		} catch (Exception e) {
+			log.error("DB 에러");
+			response = new ResponseEntity<>("서버 응답에 문제가 있습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		log.info("response : " + response.getStatusCode());
+
+		return response;
+	} //
+	
+	@GetMapping("/mapRestOne")
+	public ResponseEntity<Object> mapRestService(@RequestParam("campName") String campName){
+		
+
+		log.info("캠프명 : {}", campName);
+
+		// 질의(Query) 판정
+		CampEntity camp = null;
+
+		// 응답(response) 정보
+		ResponseEntity<Object> response = null;
+
+		try {
+
+			// 별점, 긍정/부정 지수 추가
+			camp = campService.recommendCamp(campName);
+
+			if (camp == null) {
+
+				log.info("해당 정보가 없습니다.");
+				response = new ResponseEntity<>("해당 정보가 존재하지 않습니다.", HttpStatus.NO_CONTENT);
+
+			} else { // 검색 결과 있음
+
+				response = new ResponseEntity<>(camp, HttpStatus.OK);
+
+			} // 캠프명 확보 여부
 
 		} catch (Exception e) {
 			log.error("DB 에러");

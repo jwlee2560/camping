@@ -29,16 +29,6 @@
 <link th:href="@{'/css/home.css'}" rel="stylesheet" />
 
 <style>
-/* 인트로 배경 화면 */
-#intro_bg {
-	/* background-color:#0E0E10; */
-	background-size: 100%;
-	background-image: url('/campTeam/img/main1.jpg');
-	background-repeat: no-repeat;
-	width: 100%;
-	height: 550px;
-}
-
 /* 모달 팝업창 */
 #modal_map {
 	position:absolute;
@@ -66,12 +56,10 @@
 
 /* 모달 헤더 */
 #modal_map_header {
-	border-style: ridge;
 	margin:auto;
 	height:50px;
 	display:flex;
 	align-items:center;
-	background-color:rgba(240, 205, 45, 0.5);
 }
 
 /* 모달 헤더 */
@@ -97,8 +85,6 @@
 
 /* 모달 본문 */
 #modal_map_body {
-	/* border 스타일 */
-	border-style: ridge;
 	margin-top:0px;
 	padding:10px;
     /* 글꼴색 */
@@ -106,19 +92,19 @@
     display:flex;
     height:calc(100% - 50px);
     overflow:hidden;
-    background-color:rgba(215, 202, 145, 0.5);
+    background-color:rgb(248, 248, 248);
 }
 </style>
 
 <!-- 	<script th:src="@{'/js/home.js'}"></script> -->
 <script>
 $(function() {
-		
+
 		// 개별 캠핑장 정보 모달 가리기
 	 	let modal = document.getElementById("modal_map");
 	 	let modalBody = document.getElementById("modal_map_body");
 	 	modalBody.innerHTML=""; // 이전 버전에서 여기서 오류 !
-	 	
+
 		 // 캠핑장 정보 모달 닫기
 		$("#close_btn").click(function(e) {
 
@@ -126,19 +112,19 @@ $(function() {
 		 	modal.style.visibility = 'hidden';
 
 		});
-		
+
 		// 캠핑장 정보 모달 열기
 		$("div.post-wrapper").on('click', '[id^=btn]',  function(e) {
-			
+
 			let campName = e.currentTarget.id.split("_")[1];
 
 			var modal = document.getElementById("modal_map");
 		 	modal.style.visibility = 'visible';
 		 	modal.style.left = "calc(50vw - 650px)";
 		 	modal.style.top = "calc(50vh - 300px)";
-		 	// modal.style.width = "1300px";
-		 	// modal.style.height = "600px";
-		 	
+		 	//modal.style.width = "1300px";
+		 	//modal.style.height = "600px";
+
 		 	// ajax
 		 	$.ajax({
 					method : 'get',
@@ -148,9 +134,9 @@ $(function() {
 					}
 				})
 				.done(function(response, status, xhr) {
-						
+
 					console.log("response:", response);
-					
+
 					////////// 여기서 추가해서 결과값
 
 				 	let modal = document.getElementById("modal_map");
@@ -235,18 +221,17 @@ $(function() {
 
 					// 캠핑장 정보 출력
 					modalBody.innerHTML = campResult;
-					
+
+
 				}) // done
 				.fail(function(data, status, xhr) { // 요청에 대한 응답 실패시
-		
+
 					// alert(data.status);
 					alert("서버에 문제가 발생하였습니다.");
 					console.log("data : ", data);
 					console.log("상태 코드 : ", data.status);
 					console.log("xhr : ", xhr);
 				}); // ajax
-				
-		 	
 
 		});
 
@@ -382,7 +367,7 @@ $(function() {
 						 camps += `<div class="post" style="font-family: Do Hyeon;">
 							 		   <img src="${response[i].image==null ? '/campTeam/img/no_image.png':response[i].image}" class="slider-image">
 									   <div class="post-info my-3" style="font-size: 20px;">
-										   <h4><a href="#" id="btn_${response[i].campName}">${response[i].campName}</a></h4>
+										   <h4><a href="#">${response[i].campName}</a></h4>
 										   <i class="far fa-user" style="height:10%; width:300px; overflow-wrap: break-word;">
 										   		${response[i].jibunAddress.substring(0,50)}
 									   	   </i>
@@ -431,41 +416,42 @@ $(function() {
 <body>
 
 	<div layout:fragment="content" class="main_sect_pnl">
-	
+
 	<!-- modal -->
 		<div id="modal_map">
-		
+
 		<!-- modal header -->
 		<div id="modal_map_header">
-		
+
 		<!-- modal title -->
 		<div id="modal_map_header_title">
 		 캠핑장 정보
 		 </div>
-		 
+
 		<!-- closing button icon -->
 		<div id="modal_map_header_close">
 		    <a href="#" id="modal_close_btn">
-				<span id="close_btn" class="material-icons" style="color:red">
+				<span id="close_btn" class="material-icons" style="color:#60C5F1">
 		        	clear
 		        </span>
 		    </a>
 		</div>
 		</div>
-		 
+
 		<!-- modal content -->
 		<div id="modal_map_body">
 		</div>
-		
+
 		<!-- modal footer -->
 		<div id="modal_map_footer">
 		</div>
-		
+
 		</div>
-		
+
 		<!--// modal  -->
 
-		<div class="mb-5  w-100" id="intro_bg">
+		<div class="mb-5"
+			style="background-image: url('/campTeam/img/main1.jpg'); background-repeat: no-repeat; width: 100%; height: 550px;">
 
 			<!--타이틀-->
 			<div class="w-100 d-flex justify-content-center align-items-center"
@@ -511,7 +497,7 @@ $(function() {
 
 				<div class="row mx-auto mt-1 mb-5 ps-3">
 					<ul class="list-unstyled">
-						<li class="mt-2" style="color: #fff;"><strong>키워드 검색 (예: 가평)</strong></li>
+						<li class="mt-2" style="color: #fff;"><strong>키워드 검색</strong></li>
 					</ul>
 					<div class="flex justify-content-center col-6">
 						<input type="text" id="searchWord" name="searchWord"
